@@ -11,6 +11,7 @@ core
 # Extra Storage
 JSON/prefixes.json
 JSON/settings.json
+prefixes.json
 
 # Node Folders
 node_modules/
