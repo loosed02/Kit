@@ -1,0 +1,19 @@
+{
+  "ping": "244ms",
+  "ann": "Lots of new updates since the last announcement. \n\n Changelog:\n - Tags system: New variables and a stabilized storage database\n - Welcome Messages: Improved channel detection and message variables\n - Rolebanning: New function, allows for removal of a user's roles, and replacement of those roles with a chosen role (ie. a Mute role)\n - Lookup command: Allows for search of any user ID, replies with the user's username and profile picture",
+  "version": "4.1.9 - Arcanine",
+  "lewdNum": 7,
+  "slapNum": 10,
+  "hugNum": 44,
+  "cuddleNum": 9,
+  "kissNum": 4,
+  "foxNum": 42,
+  "pokeNum": 12,
+  "patNum": 10,
+  "lossNum": 38,
+  "dabNum": 9,
+  "kNum": 6,
+  "bunNum": 19,
+  "status": "k?help • Teach the world to sing in perfect harmony",
+  "changelog": "Null"
+}
