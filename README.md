@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
  
  <div id="Invite" class="w3-animate-left w3-container w3-white w3-padding-16 myLink">
-            <center><img class="w3-image" src="./image/icon3.png" alt="Kit" width="200" height="200"></center>
+            <center><img class="w3-image" src="https://kitk.us/image/icon3.png" alt="Kit" width="200" height="200"></center>
             <p></p>
       <center><h3>Invite me to your server</h3></center>
       <center><p><b>44</b> commands and counting!</p></center>
