@@ -1,5 +1,5 @@
 {
     "token": "PASTE-BOT-ACCOUNT-TOKEN-HERE",
-    "prefix": "k?", //replace this with whatever you want the default prefix to be
+    "prefix": "k?", //replace this with what you want the default prefix to be
     "owner": "PASTE-YOUR-ID-HERE"
 }
