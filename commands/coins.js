@@ -32,7 +32,7 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 					.setColor(0xF46242)
 					.setTimestamp()
 					.setDescription("Create a profile first")
-					.setFooter("Use `profile`")
+					.setFooter("Use `k?profile`")
 					message.channel.send({embed});
 
 			} else {
