@@ -13,8 +13,8 @@
     <center><p><a href="#" class="w3-round-xxlarge w3-button w3-grey" style="width:250px">Donate (Coming Soon)</a></p></center>
 	
   </div>
-<<<<<<< HEAD
+
   </div>
-=======
+
   </div>
->>>>>>> 9488d3aec1d35b1f63781fcee12dd31418e4a260
+
