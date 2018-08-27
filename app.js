@@ -29,68 +29,6 @@ fs.readdir("./events/", (err, files) => {
   });
 });
 
-client.on("ready", () => {
-	console.log("Client Logon Successful");
-	console.log('\x1b[32m', "======================");
-	console.log("");
-	console.log('\x1b[33m', `Version: ` + data.version);
-	console.log("");
-	console.log('\x1b[32m', "======================");
-	console.log('\x1b[33m', `${client.users.size} users - ${client.channels.size} channels - ${client.guilds.size} guilds.`);
-	console.log('\x1b[32m', "=========log==========");
-
-	client.user.setActivity(data.status);
-    client.user.setStatus('online');
-    
-    const logChannel = client.channels.find('id', '479712042660528128');
-    logChannel.send(`<@378769654942007299>\n**Bot Login Successful**
-    Current Statistics:
-    **USERS:** ${client.users.size}
-    **GUILDS:** ${client.guilds.size}
-    >>>`)
-
-    //UNCOMMENT
-    //client.user.setActivity("kk!help");
-});
-
-/*
-
-WELCOME MESSAGES
-
-*/
-
-client.on("guildMemberAdd", (member) => {
-
-	if(member.bot) return;
-
-	    const guild = member.guild;
-
-	if(!settings[guild.id]){ settings[guild.id] = {shouldWelcome: "false", welcomeMessage: "this is a placeholder", welcomeChannel: "null", serverName: guild.name, serverID: guild.id, serverOwner: guild.owner_id };}
-
-	if(settings[guild.id].shouldWelcome === "false") return;
-
-	if(settings[guild.id].welcomeChannel === "null"){ return;
-	} else if(settings[guild.id].shouldWelcome === "true"){
-
-        async function welcome(){
-
-        //console.log(member);
-
-        var mbr = await member;
-        var gld = mbr.guild;
-        var mbr = mbr.user;
-        //console.log(mbr.user);
-
-        var WelcomeMessage = settings[guild.id].welcomeMessage.replace(new RegExp("{member}", 'g'), "<@" + mbr.id + ">");
-        var WelcomeMessage = WelcomeMessage.replace(new RegExp("{member.username}", 'g'), mbr.username);
-        var WelcomeMessage = WelcomeMessage.replace(new RegExp("{guild}", 'g'), gld.name);
-
-        guild.channels.get(settings[guild.id].welcomeChannel).send(WelcomeMessage).catch((error) => {return;});
-    }
-    
-    welcome();
-}
-});
 
 /*
 
