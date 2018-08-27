@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 
 exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRecently, weatheredRecently, commandCount, coinsSet, roles, queue, sql) => {
 
+
     var kitSupport = client.guilds.find('id', '449263514436239360');
     var donorArray = kitSupport.roles.find('id', '479013774880276502').members.array();
     var donorIDArray = [];

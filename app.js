@@ -236,6 +236,7 @@ client.on("message", message => {
       }
 
   //Aliases
+  if(command === "gulag"){command = "roleban";}
   if(command === "prune"){command = "purge";}
   if(command === "t"){command = "tag";}
   if(command === "pong"){command = "ping";}
@@ -323,13 +324,15 @@ client.on("message", message => {
              "ARG>> " + args.join(", ") + "\n" + 
              "=======```");
 
+             
+
   try {
     let commandFile = require(`./commands/${command}.js`);
     commandFile.run(client, message, args, deletedMessage, talkedRecently, embeddedRecently, weatheredRecently,
-    commandCount, coinsSet, roles, queue, sql, logChannel);
+    commandCount, coinsSet, roles, queue, sql, logChannel, settings);
   } catch (err) {
     logChannel.send("Invalid command: " + err)
-    console.error("Invalid command");
+    console.error("Invalid command: " + err);
     //message.channel.send("err: " + err)
   }
 }
