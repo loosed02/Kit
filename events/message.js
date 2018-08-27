@@ -1,5 +1,6 @@
 
 exports.run = (client, message) => {
+
   const logChannel = client.channels.find('id', '479712042660528128');
 
   if (message.author.bot) return;
