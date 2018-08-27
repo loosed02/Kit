@@ -236,6 +236,7 @@ client.on("message", message => {
       }
 
   //Aliases
+  if(command === "prune"){command = "purge";}
   if(command === "t"){command = "tag";}
   if(command === "pong"){command = "ping";}
   if(command === "setprefix"){command = "prefix";}

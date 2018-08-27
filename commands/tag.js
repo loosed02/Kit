@@ -338,7 +338,7 @@ if(message.author.id === "378769654942007299"){
         //console.log(Object.keys(contentVar).length);
         //console.log(contentVar)
     const embed = new Discord.RichEmbed()
-    .setColor(defaultColor)
+
     .setTimestamp() //Write to JSON
     .setTitle("There are " + (row.length) + " tags stored")
     message.channel.send({embed});
@@ -355,7 +355,7 @@ if(message.author.id === "378769654942007299"){
         //console.log(Object.keys(contentVar).length);
         console.log(contentVar)
     const embed = new Discord.RichEmbed()
-    .setColor(defaultColor)
+
     .setTimestamp() //Write to JSON
     .setTitle("You have " + (row.length) + " tags over all guilds")
     message.channel.send({embed});
@@ -590,7 +590,6 @@ list().catch((err) => {message.reply(err)});
             }
 
             const embed = new Discord.RichEmbed()
-            .setColor(defaultColor)
             .setTimestamp() //Write to JSON
             .setTitle("Tag info")
             .addField("Owner", ownerName)
