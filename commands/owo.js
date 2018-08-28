@@ -1,7 +1,7 @@
 exports.run = (client, message, args) => {
 var v = args.join(' ');
 
-if(v.length >= 500) return message.channel.send("What's this? (ERR: Too many args, use 500 or less)");
+if(v.length >= 700) return message.channel.send("What's this? (ERR: Too many characters, use 700 or less)");
 
 let owoify = function (v) {
 

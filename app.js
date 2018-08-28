@@ -285,15 +285,24 @@ client.on("message", async message => {
         });
       }
     } else {
+
+      if(message.guild){
+        var messageName = message.guild.name;
+      } else {
+        var messageName = "DM";
+      }
+
     console.log(message.author.username + 
+       ">>\n" + messageName + 
        ">>\n" + "CMD>> '" + command + "'\n" + 
                 "ARG>> " + args.join(", ") + "\n");
     console.log('\x1b[32m', "=======");
   
-    logChannel.send("```" + message.author.username + 
+    logChannel.send("```\n" + message.author.username + 
+      ">>" + messageName + 
       ">>\n" + "CMD>> '" + command + "'\n" + 
                "ARG>> " + args.join(", ") + "\n" + 
-               "=======```");
+              "```");
   
                
   
