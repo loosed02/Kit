@@ -1,5 +1,6 @@
 const fs = require('fs');
 let data = JSON.parse(fs.readFileSync("./JSON/data.json", "utf8"));
+let config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
 
 exports.run = (client) => {
     console.log("Client Logon Successful");
@@ -14,7 +15,7 @@ exports.run = (client) => {
 	client.user.setActivity(data.status);
     client.user.setStatus('online');
     
-    const logChannel = client.channels.find('id', '484087293464936458');
+    const logChannel = client.channels.find('id', config.logChannel);
     logChannel.send(`<@378769654942007299>\n**Bot Login Successful**
     Current Statistics:
     **USERS:** ${client.users.size}

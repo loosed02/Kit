@@ -136,7 +136,7 @@ MESSAGE
 
 client.on("message", async message => {
 
-    const logChannel = client.channels.find('id', '484087293464936458');
+    const logChannel = client.channels.find('id', config.logChannel);
   
     if (message.author.bot) return;
   
