@@ -2,7 +2,11 @@ const Discord = require("discord.js");
 
 exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRecently, weatheredRecently, commandCount, coinsSet, roles, queue, sql, logChannel, settings, tossedSet) => {
 
-    if(tossedSet.has(roleVar.id + "-" + message.guild.id)){
+
+    var argVar2 = args[0].replace("<@", "").replace("!", "").replace(">", "");
+        var  roleVar2 = message.guild.members.find("id", argVar2);
+
+    if(tossedSet.has(roleVar2.id + "-" + message.guild.id)){
     sql.get(`SELECT * FROM settings WHERE serverId ="${message.guild.id}"`).then(row => {
         async function profileA(){
         if (!row) {
