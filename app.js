@@ -13,6 +13,7 @@ const weatheredRecently = new Set();
 const commandCount = new Set();
 const coinsSet = new Set();
 const roles = new Set();
+const tossedSet = new Set();
 let queue = {};
 
 //sqlite
@@ -135,7 +136,7 @@ MESSAGE
 
 client.on("message", async message => {
 
-    const logChannel = client.channels.find('id', '479712042660528128');
+    const logChannel = client.channels.find('id', '484087293464936458');
   
     if (message.author.bot) return;
   
@@ -309,7 +310,7 @@ client.on("message", async message => {
     try {
       let commandFile = require(`./commands/${command}.js`);
       commandFile.run(client, message, args, deletedMessage, talkedRecently, embeddedRecently, weatheredRecently,
-      commandCount, coinsSet, roles, queue, sql, logChannel, settings);
+      commandCount, coinsSet, roles, queue, sql, logChannel, settings, tossedSet);
     } catch (err) {
       logChannel.send("Invalid command: " + err)
       console.error("Invalid command: " + err);

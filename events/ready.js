@@ -14,7 +14,7 @@ exports.run = (client) => {
 	client.user.setActivity(data.status);
     client.user.setStatus('online');
     
-    const logChannel = client.channels.find('id', '479712042660528128');
+    const logChannel = client.channels.find('id', '484087293464936458');
     logChannel.send(`<@378769654942007299>\n**Bot Login Successful**
     Current Statistics:
     **USERS:** ${client.users.size}

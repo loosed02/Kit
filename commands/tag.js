@@ -369,6 +369,8 @@ if(message.author.id === "378769654942007299"){
         // once promise returns with user, send user a DM
         sql.all(`SELECT tagName FROM tags WHERE serverId ="${message.guild.id}" AND ownerID = "${message.author.id}"`).then(row => {
             
+            if(!row) return message.channel.send("You have no tags");
+
             var contentVar = JSON.stringify(row, null, 2);
             //console.log(row.length);
 
@@ -410,7 +412,7 @@ if(message.author.id === "378769654942007299"){
 
              //console.log(messageArrayVar);
 
-            var toSend = "**== Tags List: == (If this is the only message, you have no tags)**";
+            var toSend = "**Tags [" + row.length + "]:**";
             var e = 0;
             //if(messageArrayVar.length = 0) tosend = "You have no tags.";
 
