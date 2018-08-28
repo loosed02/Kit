@@ -1,8 +1,8 @@
 const Discord = require("discord.js");
 
-exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRecently, weatheredRecently, commandCount, coinsSet, roles, queue, sql) => {
+exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRecently, weatheredRecently, commandCount, coinsSet, roles, queue, sql, logChannel, settings, tossedSet) => {
 
-
+    if(tossedSet.has(roleVar.id + "-" + message.guild.id)){
     sql.get(`SELECT * FROM settings WHERE serverId ="${message.guild.id}"`).then(row => {
         async function profileA(){
         if (!row) {
@@ -39,7 +39,9 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
             async function roleb(){
  
             await roleVar.addRoles(roles[message.guild.id + "-" + argVar].roles).then(() => {
-                delete roles[message.guild.id + "-" + argVar]
+                delete roles[message.guild.id + "-" + argVar];
+                tossedSet.delete(roleVar.id + "-" + message.guild.id);
+                
                 const embed = new Discord.RichEmbed()
                         .setDescription("Member's roles have been restored")
                     message.channel.send({embed});
@@ -66,5 +68,10 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 }
 
 rolea();
-
+    } else {
+        const embed = new Discord.RichEmbed()
+        .setColor(0xF46242)
+        .setDescription("This member is not rolebanned")
+        return message.channel.send({embed});
+    }
 }
