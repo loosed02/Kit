@@ -9,11 +9,8 @@ nameref.txt
 core
 
 # Extra Storage
-JSON/prefixes.json
-JSON/settings.json
-prefixes.json
 
-# Node Folders
+# Node Folders/Files
 node_modules/
 TrialKit.js
 

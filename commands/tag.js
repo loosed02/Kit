@@ -21,24 +21,29 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
           sql.run("INSERT INTO tags (serverId, tagName, tagContent, ownerID, selfDelete) VALUES (?, ?, ?, ?, ?)", [message.guild.id, "tags", "This command saves a tag with a specified content", client.user.id, "false"]);
         });
       });
-
-
-    var tagNameVar = args[1];
     
+
     var tagContentVar = args.join(' ');
     tagContentVar = tagContentVar.replace(args[0], "");
     tagContentVar = tagContentVar.replace(args[1], "");
+
+    var Attachment = (message.attachments).array();
+    tagContentVar = tagContentVar + Attachment.map(r => r.url).join(', ');
+
+    console.log("TagContent: " + tagContentVar);
+    console.log("Attach: " + Attachment.map(r => r.url).join(', '));
 
     //Open database file
 
 if(args[0] === "create"){
 
     sql.get(`SELECT tagName FROM tags WHERE serverId ="${message.guild.id}" AND tagName = "${args[1].toLowerCase()}"`).then(row => {
-        if(!args[2]){ 
+        if(!tagContentVar || tagContentVar.length == 0 || !args[1]){ 
             message.channel.send("A tag's name and content cannot be blank");
         } else if(args[1].length > 30){
             return message.channel.send("This tag name is too long (Limit: 30 Characters)");
         } else if(!row){
+
           sql.run("INSERT INTO tags (serverId, tagName, tagContent, ownerID, selfDelete) VALUES (?, ?, ?, ?, ?)", [message.guild.id, args[1].toLowerCase(), tagContentVar, message.author.id, "false"]);
           message.channel.send("Your tag has been created");
         } else {
@@ -177,6 +182,7 @@ if(message.author.id === "378769654942007299"){
                 taggerContent = taggerContent.replace(new RegExp("{n}", 'g'), "\n");
                 taggerContent = taggerContent.replace(new RegExp("{serverid}", 'g'), message.guild.id);
             taggerContent = taggerContent.replace(new RegExp("{channelid}", 'g'), message.channel.id);
+            taggerContent = taggerContent.replace(new RegExp("{callerid}", 'g'), message.author.id);   
     
                 var userVar = "Unknown";
     
@@ -678,7 +684,8 @@ list().catch((err) => {message.reply(err)});
 
             taggerContent = taggerContent.replace(new RegExp("{n}", 'g'), "\n");
             taggerContent = taggerContent.replace(new RegExp("{serverid}", 'g'), message.guild.id);
-            taggerContent = taggerContent.replace(new RegExp("{channelid}", 'g'), message.channel.id);            
+            taggerContent = taggerContent.replace(new RegExp("{channelid}", 'g'), message.channel.id); 
+            taggerContent = taggerContent.replace(new RegExp("{callerid}", 'g'), message.author.id);           
 
             taggerContent = taggerContent.replace(new RegExp("{channel}", 'g'), "<#" + message.channel.id + ">");
             //taggerContent = taggerContent.replace(new RegExp("{arg1}", 'g'), args[1]);

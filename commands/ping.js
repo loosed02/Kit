@@ -1,7 +1,11 @@
 const Discord = require("discord.js");
 
+const fs = require('fs');
+let config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
+
 exports.run = (client, message, args) => {
-    
+	
+	if(message.author.id === config.owner){
     async function ping(){
 		//Uptime
 		let totalSeconds = (client.uptime / 1000);
@@ -27,5 +31,7 @@ exports.run = (client, message, args) => {
     //admin.ping(pingVar, data, fs);
     }
 
-    ping();
+	ping();
+}
+
 }

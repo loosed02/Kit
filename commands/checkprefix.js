@@ -1,12 +1,23 @@
 const Discord = require("discord.js");
-const fs = require('fs');
-let data = JSON.parse(fs.readFileSync("./JSON/prefixes.json", "utf8"));
 
-exports.run = (client, message, args) => {
+exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRecently, weatheredRecently, commandCount, coinsSet, roles, queue, sql, logChannel, settings, tossedSet) => {
    
+
+  sql.get(`SELECT * FROM prefixes WHERE serverId ="${message.guild.id}"`).then(row => {
+
+    if(!row){
+      var prefix = "k?";
+    } else {
+      var prefix = row.prefix;
+    }
+
     const embed = new Discord.RichEmbed()
           .setTimestamp() //Write to JSON
-          .setTitle("This server: " + data[message.guild.id].prefix)
+          .setTitle("This server: " + prefix)
         message.channel.send({embed});
+
+
+  });
+    
        
 }

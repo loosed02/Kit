@@ -3,7 +3,7 @@ const client = new Discord.Client();
 const fs = require("fs");
 
 const config = require("./config.json");
-let settings = JSON.parse(fs.readFileSync("./JSON/settings.json", "utf8"));
+let settings = [];
 let data = JSON.parse(fs.readFileSync("./JSON/data.json", "utf8"));
 
 const deletedMessage = new Set();
@@ -34,14 +34,19 @@ client.on("guildMemberAdd", (member) => {
 
 	if(member.bot) return;
 
-	    const guild = member.guild;
+  sql.get(`SELECT * FROM prefixes WHERE serverId ="${member.guild.id}"`).then(row => {
+    if(!row){
+      sql.run("INSERT INTO prefixes (prefix, welcomeMessage, welcomeChannel, shouldWelcome, serverId) VALUES (?, ?, ?, ?, ?)", ["k?", "This is a placeholder", "null", "false", message.guild.id]);
+      console.log("added to prefixes");
+    }
 
-	if(!settings[guild.id]){ settings[guild.id] = {shouldWelcome: "false", welcomeMessage: "this is a placeholder", welcomeChannel: "null", serverName: guild.name, serverID: guild.id, serverOwner: guild.owner_id };}
 
-	if(settings[guild.id].shouldWelcome === "false") return;
+    const guild = member.guild;
 
-	if(settings[guild.id].welcomeChannel === "null"){ return;
-	} else if(settings[guild.id].shouldWelcome === "true"){
+	if(row.shouldWelcome === "false") return;
+
+	if(row.welcomeChannel === "null"){ return;
+	} else if(row.shouldWelcome === "true"){
 
         async function welcome(){
 
@@ -52,15 +57,22 @@ client.on("guildMemberAdd", (member) => {
         var mbr = mbr.user;
         //console.log(mbr.user);
 
-        var WelcomeMessage = settings[guild.id].welcomeMessage.replace(new RegExp("{member}", 'g'), "<@" + mbr.id + ">");
+        var WelcomeMessage = row.welcomeMessage.replace(new RegExp("{member}", 'g'), "<@" + mbr.id + ">");
         var WelcomeMessage = WelcomeMessage.replace(new RegExp("{member.username}", 'g'), mbr.username);
         var WelcomeMessage = WelcomeMessage.replace(new RegExp("{guild}", 'g'), gld.name);
 
-        guild.channels.get(settings[guild.id].welcomeChannel).send(WelcomeMessage).catch((error) => {return;});
+        guild.channels.get(row.welcomeChannel).send(WelcomeMessage).catch((error) => {return;});
     }
-    
+
     welcome();
-}
+  }
+
+    }).catch(() => {
+    console.error;
+    });
+
+    
+  
 });
 
 /*
@@ -136,48 +148,41 @@ MESSAGE
 
 client.on("message", async message => {
 
+  if(message.channel.type === "dm") return;
+
+  sql.get(`SELECT * FROM prefixes WHERE serverId ="${message.guild.id}"`).then(row => {
+
+    if(!row){
+      var customPrefix = "k?";
+    } else {
+      var customPrefix = row.prefix;
+    }
+
     const logChannel = client.channels.find('id', config.logChannel);
   
     if (message.author.bot) return;
   
     if(message.guild){
-    sql.run("CREATE TABLE IF NOT EXISTS settings (serverId TEXT, banId TEXT)").then(() => {
-      sql.run("INSERT INTO settings (serverId, banId) VALUES (?, ?)", [message.guild.id, "null"]);
-    });
+
+    sql.get(`SELECT * FROM settings WHERE serverId ="${message.guild.id}"`).then(row => {
+      if(!row){
+        sql.run("INSERT INTO settings (serverId, banId) VALUES (?, ?)", [message.guild.id, null]);
+      }
+		  }).catch(() => {
+			console.error;
+		  });
+
+
+    sql.get(`SELECT * FROM prefixes WHERE serverId ="${message.guild.id}"`).then(row => {
+      if(!row){
+        sql.run("INSERT INTO prefixes (prefix, welcomeMessage, welcomeChannel, shouldWelcome, serverId) VALUES (?, ?, ?, ?, ?)", ["k?", "This is a placeholder", "null", "false", message.guild.id]);
+        console.log("added to prefixes");
+      }
+		  }).catch(() => {
+			console.error;
+		  });
   }
   
-    let prefixes = JSON.parse(fs.readFileSync("./JSON/prefixes.json", "utf8"));
-  
-    //Custom prefix storage
-    if(!message.guild){
-      
-      var args = message.content.match(/[^\s"]+|"([^"]*)"/g);
-      if(!args){
-        var args = [];
-      }
-  
-      //DM ACTIONS
-      //return;
-    } else {
-  
-    if(!prefixes[message.guild.id]){
-  
-      prefixes[message.guild.id] = {
-          prefix: config.prefix,
-          serverName: message.guild.name
-        };
-      
-          //Write to JSON
-      fs.writeFile("./JSON/prefixes.json", JSON.stringify(prefixes), (err) => {
-        if (err) console.error(err)
-      });
-      }   
-    }
-  
-    if(message.guild){
-    var customPrefix = prefixes[message.guild.id].prefix;
-    }
-    
     var botMention = "<@" + client.user.id + ">";
     var botMentionX = "<@!" + client.user.id + ">";
   
@@ -222,7 +227,9 @@ client.on("message", async message => {
     if(command === "pet" || command === "pap"){command = "pat";}
     if(command === "boop"){command = "poke";}
     if(command === "nyah" || command === "nya" || command === "mow" || command === "kitty"){command = "cat";}
-  
+    if(command === "colour"){command = "color";}
+    if(command === "randcolour"){command = "randcolor";}
+
     //These commands don't work in DMs
     var DMCommands = [
       "ban", "kick", "checkprefix",
@@ -319,7 +326,7 @@ client.on("message", async message => {
   }
   }
   
-
+});
 });
 
 client.login(config.token);
