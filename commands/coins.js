@@ -102,14 +102,16 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 		const embed = new Discord.RichEmbed()
 
 				.setTimestamp()
-				.setDescription("You have " + row.rep + " quarters\n`You cannot get coins`")
+				.setColor(0xF46242)
+				.setDescription("You have " + row.rep + " quarters")
 				message.channel.send({embed});
 				
 			} else {
 				const embed = new Discord.RichEmbed()
 
 				.setTimestamp()
-				.setDescription("You have " + row.rep + " quarters\n`Type k?coins add to get more`")
+				.setColor(0x32ff58)
+				.setDescription("You have " + row.rep + " quarters")
 				message.channel.send({embed});
 			}
 			//you got one point
