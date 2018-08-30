@@ -1,54 +1,42 @@
-const rpgdice = require('rpg-dice');
+const rpgdice = require('droll');
 const Discord = require('discord.js');
 
 exports.run = (client, message, args) => {
 	if(args[0]){
-var roll = args[0];
 
-if(args[0].match(/\d+/g).length = 1){
-
-
+		console.log(args[0]);
 	var numbers  = args[0].match(/\d+/g);
+	console.log(numbers);
 
 	if(parseInt(numbers[0]) > 300){
 		message.channel.send("One number was too high");
 	} else {
 
-console.log(numbers);
+		if(numbers.length === 1){
+			
+			var result = rpgdice.roll("1d" + args.join(' '));
 
-			var result = rpgdice.roll("1d" + numbers[0]);
+			if(!result){
+				message.channel.send("Incorrect syntax");
+			}
+	
+			if(result.length > 50) return message.channel.send("Too many dice");
+			message.channel.send("Result: " + result);
 
-		if(!result.result){
-			message.channel.send("Incorrect syntax");
+		} else {
+
+
+			var result = rpgdice.roll(args.join(' '));
+
+		if(!result){
+			return message.channel.send("Incorrect syntax");
 		}
 
-		if(result.rolls.length > 50) return message.channel.send("Too many dice");
-		message.channel.send("Result: " + result.result +
-                        "\n" + "Individual: " + result.rolls.join(','));
+		if(result.length > 50) return message.channel.send("Too many dice");
+		message.channel.send("Result: " + result);
+		
 	}
-} else if (args[0].match(/\d+/g).length = 2){
-
-	var numbers  = args[0].match(/\d+/g);
-
-	if(parseInt(numbers[1] > 300) || parseInt(numbers[0]) > 300){
-		message.channel.send("One number was too high");
-	} else {
-
-	console.log(numbers);
-
-			var result = rpgdice.roll(numbers[0] + "d" + numbers[1]);
-
-		if(!result.result){
-			message.channel.send("Incorrect syntax");
-		}
-
-		if(result.rolls.length > 50) return message.channel.send("Too many dice");
-		message.channel.send("Result: " + result.result +
-                        "\n" + "Individual: " + result.rolls.join(','));
+      
 	}
-} else {
-	return message.channel.send("Invalid Syntax");
 }
-
-	}        
 }
