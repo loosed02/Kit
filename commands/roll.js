@@ -8,8 +8,12 @@ exports.run = (client, message, args) => {
 	var numbers  = args[0].match(/\d+/g);
 	console.log(numbers);
 
-	if(parseInt(numbers[0]) > 300){
-		message.channel.send("One number was too high");
+	if(parseInt(numbers[0]) > 120){
+		return message.channel.send("One number was too high");
+	} else if(numbers[1]){
+		if(parseInt(numbers[1]) > 120){
+			return message.channel.send("One number was too high");
+		}
 	} else {
 
 		if(numbers.length === 1){
