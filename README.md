@@ -1,3 +1,10 @@
+ ## Kit Bot
+ A basic moderation bot for discord
+
+ ## Running
+ If you want to use the bot, invite it with the link below. I would prefer you didn't run your own instance; mostly because one already exists, but no support will be given to you for them, and the bot will quickly become out of date
+
+
  <div align="center">
  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">

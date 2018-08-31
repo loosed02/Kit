@@ -613,12 +613,16 @@ list().catch((err) => {message.reply(err)});
     } else if(args[0] === "g") {
         sql.get(`SELECT tagContent FROM tags WHERE serverId ="GLOBAL" AND tagName = "${args[1].toLowerCase()}"`).then(row => {
             if(!row){
-                message.channel.send("A tag with this name does not exist");
+                message.channel.send("A global tag with this name does not exist");
             } else {
                 console.log(row);
                 var taggerContent = row.tagContent;
-                taggerContent = taggerContent.replace("{caller}", message.author);
-                taggerContent = taggerContent.replace("{caller.name}", message.author.username);
+                taggerContent = taggerContent.replace(new RegExp("{n}", 'g'), "\n");
+            taggerContent = taggerContent.replace(new RegExp("{serverid}", 'g'), message.guild.id);
+            taggerContent = taggerContent.replace(new RegExp("{channelid}", 'g'), message.channel.id); 
+            taggerContent = taggerContent.replace(new RegExp("{callerid}", 'g'), message.author.id);           
+           
+            taggerContent = taggerContent.replace(new RegExp("{channel}", 'g'), "<#" + message.channel.id + ">");
                 
                 var i = 1;
                 while(i < 1000){
@@ -640,8 +644,12 @@ list().catch((err) => {message.reply(err)});
         } else {
             console.log(row);
             var taggerContent = row.tagContent;
-            taggerContent = taggerContent.replace("{caller}", message.author);
-            taggerContent = taggerContent.replace("{caller.name}", message.author.username);
+            taggerContent = taggerContent.replace(new RegExp("{n}", 'g'), "\n");
+            taggerContent = taggerContent.replace(new RegExp("{serverid}", 'g'), message.guild.id);
+            taggerContent = taggerContent.replace(new RegExp("{channelid}", 'g'), message.channel.id); 
+            taggerContent = taggerContent.replace(new RegExp("{callerid}", 'g'), message.author.id);           
+           
+            taggerContent = taggerContent.replace(new RegExp("{channel}", 'g'), "<#" + message.channel.id + ">");
             
             var i = 1;
             while(i < 1000){
