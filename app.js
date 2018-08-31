@@ -259,7 +259,7 @@ client.on("message", async message => {
         return text;
       }
     
-    if(message.author.id === "378769654942007299" || message.author.id === "454461184792461312"){
+    if(config.evalAllow.includes(message.author.id)){
     
     try {
       const code = args.join(" ");

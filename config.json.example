@@ -1,6 +1,0 @@
-{
-    "token": "PASTE-BOT-ACCOUNT-TOKEN-HERE",
-    "prefix": "k?", //replace this with what you want the default prefix to be
-    "owner": "PASTE-YOUR-ID-HERE",
-    "logChannel": "PASTE-LOG-CHANNEL-ID-HERE"
-}
