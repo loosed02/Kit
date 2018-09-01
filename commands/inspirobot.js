@@ -21,3 +21,8 @@ exports.run = (client, message, args) => {
 apiGet();
 	}
 }
+
+exports.conf = {
+    DM: true,
+    OwnerOnly: false
+}

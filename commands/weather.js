@@ -61,3 +61,8 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 
 
 }
+
+exports.conf = {
+  DM: true,
+  OwnerOnly: false
+}

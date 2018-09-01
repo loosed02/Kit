@@ -26,3 +26,8 @@ let owoify = function (v) {
 
   message.channel.send(owoify(v));
 }
+
+exports.conf = {
+    DM: true,
+    OwnerOnly: false
+}

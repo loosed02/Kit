@@ -31,3 +31,8 @@ if(!args[0]) return message.channel.send("No arguments were given");
 	}
     }
 }
+
+exports.conf = {
+    DM: true,
+    OwnerOnly: false
+}

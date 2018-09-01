@@ -56,3 +56,9 @@ var hug;
         console.log('\x1b[36m', `async: ` + hugVar);
         }
     }
+
+
+    exports.conf = {
+        DM: true,
+        OwnerOnly: false
+    }

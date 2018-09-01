@@ -49,3 +49,8 @@ exports.run = (client, message, args) => {
 ban();
 
  }
+ 
+exports.conf = {
+    DM: true,
+    OwnerOnly: false
+}

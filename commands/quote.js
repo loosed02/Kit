@@ -35,3 +35,8 @@ exports.run = (client, message, args) => {
     fetchM(firstArg, secondArg);
 
 }
+
+exports.conf = {
+    DM: true,
+    OwnerOnly: false
+}

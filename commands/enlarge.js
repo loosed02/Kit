@@ -22,3 +22,8 @@ if(!args[0]){
     return message.channel.send("Invalid emote ("+ emojiID.length +")");
 }
 }
+
+exports.conf = {
+    DM: true,
+    OwnerOnly: false
+}

@@ -6,3 +6,8 @@ exports.run = (client, message, args) => {
     console.log(">>> " + args.join(' '));
 
 }
+
+exports.conf = {
+    DM: true,
+    OwnerOnly: false
+}

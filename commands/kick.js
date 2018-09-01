@@ -92,3 +92,8 @@ exports.run = (client, message, args) => {
 
     kick();
 }
+
+exports.conf = {
+    DM: true,
+    OwnerOnly: false
+}

@@ -33,3 +33,8 @@ exports.run = (client, message, args) => {
     message.channel.send(videoResult);
     });
     }
+    
+    exports.conf = {
+      DM: true,
+      OwnerOnly: false
+  }

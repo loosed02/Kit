@@ -4,3 +4,8 @@ exports.run = (client, message, args) => {
 var response = responses[Math.floor(Math.random()*responses.length)];
 message.channel.send(response).then().catch(console.error);
 }
+
+exports.conf = {
+    DM: true,
+    OwnerOnly: false
+}

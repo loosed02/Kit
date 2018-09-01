@@ -14,3 +14,8 @@ exports.run = (client, message, args) => {
 	console.log('BUN: ' + response + `.jpg`);
 	
 }
+
+exports.conf = {
+	DM: true,
+	OwnerOnly: false
+}

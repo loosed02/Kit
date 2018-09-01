@@ -717,3 +717,8 @@ list().catch((err) => {message.reply(err)});
 }
 
   }
+  
+  exports.conf = {
+    DM: true,
+    OwnerOnly: false
+}

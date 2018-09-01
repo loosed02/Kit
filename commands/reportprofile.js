@@ -53,3 +53,8 @@ if(!args[0]){
 }
 }
 }
+
+exports.conf = {
+    DM: true,
+    OwnerOnly: false
+}

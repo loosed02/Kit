@@ -20,3 +20,8 @@ exports.run = (client, message, args) => {
 getCat();
 
 }
+
+exports.conf = {
+    DM: true,
+    OwnerOnly: false
+}

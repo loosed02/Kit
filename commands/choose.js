@@ -8,3 +8,8 @@ exports.run = (client, message, args) => {
 		message.channel.send("I choose **" + response + "**");
     
 }
+
+exports.conf = {
+    DM: true,
+    OwnerOnly: false
+}

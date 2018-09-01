@@ -6,6 +6,7 @@ const config = require("./config.json");
 let settings = [];
 let data = JSON.parse(fs.readFileSync("./JSON/data.json", "utf8"));
 
+//Temporary data sets - resets when the bot does
 const deletedMessage = new Set();
 const talkedRecently = new Set();
 const embeddedRecently = new Set();
@@ -14,12 +15,13 @@ const commandCount = new Set();
 const coinsSet = new Set();
 const roles = new Set();
 const tossedSet = new Set();
-let queue = {};
+let queue = {}; //NOTE - this can probably be removed
 
-//sqlite
+//SQLite database file
 const sql = require("sqlite");
 sql.open("./tags.sqlite");
 
+//Event loader (for events that aren't in this file)
 fs.readdir("./events/", (err, files) => {
   if (err) return console.error(err);
   files.forEach(file => {
@@ -30,6 +32,7 @@ fs.readdir("./events/", (err, files) => {
   });
 });
 
+//Welcome message handler, reads from 'prefixes' table
 client.on("guildMemberAdd", (member) => {
 
 	if(member.bot) return;
@@ -80,12 +83,11 @@ client.on("guildMemberAdd", (member) => {
 DELETES AND EDITS
 
 */
+
+//Message logger
 client.on("messageUpdate", async (message, oldMessage, newMessage) => {
   if(message.author.bot) return;
 
-
-  //console.log(oldMessage.content);
-  //console.log(message.channel.id);
   var channelID = message.channel.id;
 
   var oldMessageVar = await oldMessage.content;
@@ -116,6 +118,7 @@ DELETES AND EDITS
 
 */
 
+//Message Logger
 client.on("messageDelete", (message) => {
 
 
@@ -146,6 +149,7 @@ MESSAGE
 
 */
 
+//On-message event
 client.on("message", async message => {
 
   if(message.channel.type === "dm") return;
@@ -229,22 +233,6 @@ client.on("message", async message => {
     if(command === "nyah" || command === "nya" || command === "mow" || command === "kitty"){command = "cat";}
     if(command === "colour"){command = "color";}
     if(command === "randcolour"){command = "randcolor";}
-
-    //These commands don't work in DMs
-    var DMCommands = [
-      "ban", "kick", "checkprefix",
-      "prefix", "purge", "reportbug",
-      "roleban", "snipe", "tag",
-      "unroleban", "weather", "reportprofile"
-    ];
-  
-    if(DMCommands.includes(command) && message.channel.type === "dm"){
-      const embed = new Discord.RichEmbed()
-      .setColor(0xF46242)
-      .setTimestamp() //Write to JSON
-      .setTitle("This command is disabled in DMs")
-      message.channel.send({embed});
-    } else {
   
     //Eval
     if(command === "eval"){
@@ -316,15 +304,23 @@ client.on("message", async message => {
   
     try {
       let commandFile = require(`./commands/${command}.js`);
+      logChannel.send(commandFile.conf);
+      if(commandFile.conf.DM === true){
       commandFile.run(client, message, args, deletedMessage, talkedRecently, embeddedRecently, weatheredRecently,
       commandCount, coinsSet, roles, queue, sql, logChannel, settings, tossedSet);
+      } else {
+        const embed = new Discord.RichEmbed()
+      .setColor(0xF46242)
+      .setTitle("This command is disabled")
+      message.channel.send({embed});
+      }
     } catch (err) {
       logChannel.send("Invalid command: " + err)
       console.error("Invalid command: " + err);
       //message.channel.send("err: " + err)
     }
   }
-  }
+  
   
 });
 });

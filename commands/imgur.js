@@ -29,3 +29,8 @@ exports.run = (client, message, args) => {
 	})
     message.channel.stopTyping();
 }
+
+exports.conf = {
+    DM: true,
+    OwnerOnly: false
+}

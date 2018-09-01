@@ -57,3 +57,8 @@ exports.run = (client, message, args) => {
         message.channel.send({embed: embedVar});
     }
 }
+
+exports.conf = {
+    DM: true,
+    OwnerOnly: false
+}

@@ -14,3 +14,8 @@ exports.run = (client, message, args) => {
        message.channel.send({embed: embedVar}); //NAMING SCHEME - /loss/#.jpg <- MUST BE JPG
     console.log('FX: ' + response + `.jpg`);
 }
+
+exports.conf = {
+    DM: true,
+    OwnerOnly: false
+}

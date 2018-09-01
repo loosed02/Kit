@@ -560,60 +560,7 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 					.setDescription("Bot Owner required")
 					message.channel.send({embed});
 				}
-			} /*else if(args[0] === "repgive"){
-
-				var repToGive;
-				var repRecieved;
-
-				if(!args[1]) return message.channel.send("No arguments");
-
-				var idVar = args[1].replace("<@", "").replace("!", "").replace(">", "");
-
-				sql.get(`SELECT rep FROM profiles WHERE userID ="${message.author.id}"`).then(row => {
-					console.log("fetched1");
-					if(!row){
-						const embed = new Discord.RichEmbed()
-						.setTitle("No Profile Found")
-						.setDescription("Either you have no profile, or the user you are giving to does not")
-						return message.channel.send(embed);
-					}
-					
-					repToGive = row.rep;
-
-					if(repToGive = 0){
-						console.log("fetched2");
-						const embed = new Discord.RichEmbed()
-						.setDescription("You have no rep to give")
-						return message.channel.send(embed);
-					}
-
-				});
-
-				sql.get(`SELECT rep FROM profiles WHERE userID ="${idVar}"`).then(row => {
-					console.log("fetched3");
-					if(!row){
-						const embed = new Discord.RichEmbed()
-						.setTitle("No Profile Found")
-						.setDescription("Either you have no profile, or the user you are giving to does not")
-						return message.channel.send(embed);
-					}	
-
-					repRecieved = row.toRep;	
-
-				});
-
-				sql.run(`UPDATE profiles SET rep = ${repToGive - 1} WHERE userId = "${message.author.id}"`);
-				console.log("fetched4");
-				sql.run(`UPDATE profiles SET rep = ${repRecieved + 1} WHERE userId = "${idVar}"`);
-				console.log("fetched5");
-
-				message.channel.send("You have given 1 repuation point");
-
-				
-
-			//} else if(args[0] === "repremove"){
-
-			}*/ else {
+			} else {
 
 				var argsVar = args.join(' ');
 				argsVar = argsVar.replace("<@!", "");
@@ -733,4 +680,9 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 		.setTitle("This command is locked")
 		message.channel.send({embed});
 	}
+}
+
+exports.conf = {
+	DM: true,
+	OwnerOnly: false
 }

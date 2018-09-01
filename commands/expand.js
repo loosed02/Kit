@@ -11,3 +11,8 @@ var messageStr = args.join(' ');
 message.channel.send(converter.toFullWidth(messageStr));
       }
     }
+
+    exports.conf = {
+        DM: true,
+        OwnerOnly: false
+    }

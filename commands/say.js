@@ -8,3 +8,8 @@ if(message.author.id === "378769654942007299"){
 	
     } else { message.channel.send("nice try"); }
 }
+
+exports.conf = {
+	DM: true,
+	OwnerOnly: false
+}
