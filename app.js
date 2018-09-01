@@ -304,7 +304,6 @@ client.on("message", async message => {
   
     try {
       let commandFile = require(`./commands/${command}.js`);
-      logChannel.send(commandFile.conf);
       if(commandFile.conf.DM === true){
       commandFile.run(client, message, args, deletedMessage, talkedRecently, embeddedRecently, weatheredRecently,
       commandCount, coinsSet, roles, queue, sql, logChannel, settings, tossedSet);
