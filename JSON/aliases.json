@@ -32,6 +32,12 @@
     "uinfo":{
         "aliases": ["userinfo"]
     },
+    "tag":{
+        "aliases": ["t"]
+    },
+    "coins":{
+        "aliases": ["quarters"]
+    },
     "prefix":{
         "aliases": ["setprefix"]
     }

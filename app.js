@@ -220,8 +220,7 @@ client.on("message", async message => {
         delete require.cache[require.resolve(`./JSON/aliases.json`)];
         var aliasAR = require("./JSON/aliases.json");
 
-        for (const key of Object.keys(aliasAR))
-        if (aliasAR[key].aliases.includes(command)) command = key;
+        for (const key of Object.keys(aliasAR)) if (aliasAR[key].aliases.includes(command)) command = key;
   
     //Eval
     if(command === "eval"){
