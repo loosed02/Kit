@@ -7,7 +7,51 @@
 ## Documentation
 Command documentation is available <a href="https://kitk.us" class="w3-round-xxlarge w3-button w3-green" style="width:250px">here</a>
 
-##
+## Command Aliases
+Some commands have aliases, they are included in `./JSON/aliases.json`.
+When an alias is used, it calls the parent command instead
+
+**Aliases:**
+```js
+{
+    "ping":{
+        "aliases": ["pong"]
+    },
+    "8ball":{
+        "aliases": ["is", "does", "am", "are", "will", "do", "have"]
+    },
+    "owo":{
+        "aliases": ["uwu"]
+    },
+    "temp":{
+        "aliases": ["temperature"]
+    },
+    "roleban":{
+        "aliases": ["toss"]
+    },
+    "nonascii":{
+        "aliases": ["decancer"]
+    },
+    "cat":{
+        "aliases": ["cac", "meow", "mewo", "mew", "kitty", "kitten", "nya", "nyan", "nyah"]
+    },
+    "pat":{
+        "aliases": ["pet", "pap"]
+    },
+    "poke":{
+        "aliases": ["boop"]
+    },
+    "hug":{
+        "aliases": ["cuddle"]
+    },
+    "uinfo":{
+        "aliases": ["userinfo"]
+    },
+    "prefix":{
+        "aliases": ["setprefix"]
+    }
+}
+```
 
  <div align="center">
  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">

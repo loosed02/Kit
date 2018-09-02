@@ -1,0 +1,38 @@
+{
+    "ping":{
+        "aliases": ["pong"]
+    },
+    "8ball":{
+        "aliases": ["is", "does", "am", "are", "will", "do", "have"]
+    },
+    "owo":{
+        "aliases": ["uwu"]
+    },
+    "temp":{
+        "aliases": ["temperature"]
+    },
+    "roleban":{
+        "aliases": ["toss"]
+    },
+    "nonascii":{
+        "aliases": ["decancer"]
+    },
+    "cat":{
+        "aliases": ["cac", "meow", "mewo", "mew", "kitty", "kitten", "nya", "nyan", "nyah"]
+    },
+    "pat":{
+        "aliases": ["pet", "pap"]
+    },
+    "poke":{
+        "aliases": ["boop"]
+    },
+    "hug":{
+        "aliases": ["cuddle"]
+    },
+    "uinfo":{
+        "aliases": ["userinfo"]
+    },
+    "prefix":{
+        "aliases": ["setprefix"]
+    }
+}

@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 
 exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRecently, weatheredRecently, commandCount, coinsSet, roles, queue, sql) => {
 
-	return message.channel.send("This command is temporarily disabled");
+	//return message.channel.send("This command is temporarily disabled");
 	
     var kitSupport = client.guilds.find('id', '449263514436239360');
     var donorArray = kitSupport.roles.find('id', '479013774880276502').members.array();
@@ -125,6 +125,7 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 }
 
 exports.conf = {
-    DM: false,
+    DM: true,
     OwnerOnly: false
 }
+8

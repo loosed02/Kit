@@ -216,23 +216,12 @@ client.on("message", async message => {
         command = args.shift().toLowerCase();
         }
   
-    //Aliases
-    if(command === "gulag"){command = "roleban";}
-    if(command === "prune"){command = "purge";}
-    if(command === "t"){command = "tag";}
-    if(command === "pong"){command = "ping";}
-    if(command === "setprefix"){command = "prefix";}
-    if(command === "stats"){command = "info";}
-    if(command === "avy"){command = "avatar";}
-    if(command === "yt"){command = "youtube";}
-    if(command === "bun" || command === "bunny"){command = "rabbit";}
-    if(command === "should" || command === "was" || command === "did" || command === "can" || command === "may" || command === "is" || command === "do" || command === "will" || command === "does" || command === "am" || command === "are"){ command = "8ball";}
-    if(command === "cuddle"){command = "hug";}
-    if(command === "pet" || command === "pap"){command = "pat";}
-    if(command === "boop"){command = "poke";}
-    if(command === "nyah" || command === "nya" || command === "mow" || command === "kitty"){command = "cat";}
-    if(command === "colour"){command = "color";}
-    if(command === "randcolour"){command = "randcolor";}
+        //Command alias checker - messy but working
+        delete require.cache[require.resolve(`./JSON/aliases.json`)];
+        var aliasAR = require("./JSON/aliases.json");
+
+        for (const key of Object.keys(aliasAR))
+        if (aliasAR[key].aliases.includes(command)) command = key;
   
     //Eval
     if(command === "eval"){
