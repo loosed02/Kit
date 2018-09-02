@@ -58,9 +58,8 @@ When an alias is used, it calls the parent command instead
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
  
- <div id="Invite" class="w3-animate-left w3-container w3-white w3-padding-16 myLink">
-            <center><img class="w3-image" src="https://kitk.us/image/icon3.png" alt="Kit" width="200" height="200"></center>
-            <p></p>
+<a href = "https://discord.gg/vqSa3ez"><img src="https://discordapp.com/api/guilds/449263514436239360/embed.png?style=banner1">
+
       <center><h3>Kit Bot - Moderation and General Use Bot</h3></center>
       <center><p><b>44</b> commands and counting!</p></center>
       <center><p><a href="https://kitk.us/Kit" class="w3-round-xxlarge w3-button w3-blue-grey" style="width:250px">Invite Me</a></p></center>
