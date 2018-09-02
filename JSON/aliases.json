@@ -38,6 +38,9 @@
     "coins":{
         "aliases": ["quarters"]
     },
+    "youtube":{
+        "aliases": ["yt"]
+    },
     "prefix":{
         "aliases": ["setprefix"]
     }
