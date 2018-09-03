@@ -292,9 +292,16 @@ client.on("message", async message => {
   
     try {
       let commandFile = require(`./commands/${command}.js`);
-      if(commandFile.conf.DM === true){
-      commandFile.run(client, message, args, deletedMessage, talkedRecently, embeddedRecently, weatheredRecently,
-      commandCount, coinsSet, roles, queue, sql, logChannel, settings, tossedSet);
+      if(commandFile.conf.DM === true && commandFile.conf.OwnerOnly === false){
+      
+        commandFile.run(client, message, args, deletedMessage, talkedRecently, embeddedRecently, weatheredRecently,
+          commandCount, coinsSet, roles, queue, sql, logChannel, settings, tossedSet);
+      
+    } else if(commandFile.conf.OwnerOnly = true && message.author.id === config.owner){
+
+        commandFile.run(client, message, args, deletedMessage, talkedRecently, embeddedRecently, weatheredRecently,
+          commandCount, coinsSet, roles, queue, sql, logChannel, settings, tossedSet);
+
       } else {
         const embed = new Discord.RichEmbed()
       .setColor(0xF46242)

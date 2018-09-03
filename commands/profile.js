@@ -683,6 +683,6 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 }
 
 exports.conf = {
-	DM: false,
+	DM: true,
 	OwnerOnly: false
 }

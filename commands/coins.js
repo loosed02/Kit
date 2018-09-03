@@ -27,7 +27,7 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 		  coinsSet.delete(message.author.id);
 		}, 86400000);
 		//execute module here
-		sql.get(`SELECT rep FROM profiles WHERE userID ="${message.author.id}"`).then(row => {
+		sql.get(`SELECT rep FROM profiles WHERE userId ="${message.author.id}"`).then(row => {
 			if(!row){
 				//make profile first
 				const embed = new Discord.RichEmbed()
@@ -57,12 +57,19 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 			//you got one point
 			
 
+		}).catch((err) => {
+					const embed = new Discord.RichEmbed()
+					.setColor(0xF46242)
+					.setTimestamp()
+					.setDescription("An error occured")
+					.setFooter(err)
+					message.channel.send({embed});
 		});
 		}
 
 	} else if(args[0] === "get"){
 		//search for user
-		sql.get(`SELECT rep FROM profiles WHERE userID ="${args[0]}"`).then(row => {
+		sql.get(`SELECT rep FROM profiles WHERE userId ="${args[0]}"`).then(row => {
 			if(!row){
 				//make profile first
 				const embed = new Discord.RichEmbed()
@@ -87,7 +94,7 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 
 	} else {
 		//display sender's
-		sql.get(`SELECT rep FROM profiles WHERE userID ="${message.author.id}"`).then(row => {
+		sql.get(`SELECT rep FROM profiles WHERE userId ="${message.author.id}"`).then(row => {
 			if(!row){
 				//make profile first
 				const embed = new Discord.RichEmbed()
@@ -125,7 +132,6 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 }
 
 exports.conf = {
-    DM:  false,
+    DM:  true,
     OwnerOnly: false
 }
-8

@@ -41,6 +41,9 @@
     "youtube":{
         "aliases": ["yt"]
     },
+    "avatar":{
+        "aliases": ["avy"]
+    },
     "prefix":{
         "aliases": ["setprefix"]
     }
