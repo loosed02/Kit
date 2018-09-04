@@ -13,7 +13,7 @@ exports.run = (client, message) => {
 		"**Authors: ** Kaboodle#4206, Steppie#9845" + "\n" + 
 		"**Guilds/Users: **" + `${client.guilds.size}/${client.users.size}` + "\n" +
 		"**Art:** " + "[ごとー](https://twitter.com/Reitsu_ki)" + "\n" +
-		"**Website:** " + "[Link](https://kitk.us/)"
+		"**Website:** " + "[Link](https://bot.kitk.us/)"
 	)
 
 	.setFooter("v." + data.version)

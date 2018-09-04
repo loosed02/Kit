@@ -16,7 +16,7 @@ exports.run = (client, message, args) => {
 	} else if(args[0] === "server"){
 		const embed = new Discord.RichEmbed()
 		.setDescription("[Link](" + message.guild.iconURL.replace(".jpg", ".png") + ")")
-		.setImage(message.guild.iconURL.replace(".jpg", ".png"))
+		.setImage(message.guild.iconURL.replace(".jpg", ".png") + "?size=512")
 		return message.channel.send({embed});
 	} else if(args[0].match(/^\d/)){
 		userID = args[0];
@@ -45,7 +45,7 @@ exports.run = (client, message, args) => {
 	client.fetchUser(userID).then(myUser => {
 		const embed = new Discord.RichEmbed()
 		.setDescription("[Link](" + myUser.avatarURL + ")")
-		.setImage(myUser.avatarURL)
+		.setImage(`${myUser.avatarURL}`)
 		message.channel.send({embed});
 		//message.channel.send(myUser.avatarURL); // My user's avatar is here!
 	}).catch((err)=>{

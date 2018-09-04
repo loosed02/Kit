@@ -44,6 +44,9 @@
     "avatar":{
         "aliases": ["avy"]
     },
+    "info":{
+        "aliases": ["stats"]
+    },
     "prefix":{
         "aliases": ["setprefix"]
     }
