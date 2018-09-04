@@ -3,6 +3,10 @@
         "name": "Help",
         "description":"Displays the command list, and detailed information on specific commands \n\n**[Usage: help <command>]**"
     },
+    "quote":{
+        "name": "Message Quoter",
+        "description": "Displays a message's content and author\n\n**[Usage: quote <message-id> <optional: #channel>]**"
+    },
     "welcome":{
         "name": "Welcome Messages",
         "description":"Displays a welcome message on a member's joining.\n\n**Sub-commands:**\nk?setchannel #channel - Sets the welcome message channel to the mentioned channel, or ID\nk?welcome toggle - Disables/welcome welcome messages\nk?welcome edit <message> - Set the welcome message for the server\n\n**Welcome Message Syntax:**\n**{member}** is replaced with `@user` when the user joins\n**{member.username}** is replaced with the joining members username\n**{guild}** is replaced with the server's name"
