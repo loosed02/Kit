@@ -6,6 +6,9 @@ exports.run = (client, message, args) => {
         if(!id) return;
 
         ch = ch.replace("<#", "").replace(">", "");
+
+        console.log(ch);
+
         var chan = message.guild.channels.find('id', ch);
         var mVar = await chan.fetchMessage(id);
     
@@ -32,7 +35,14 @@ exports.run = (client, message, args) => {
         var secondArg = args[1];
     }
 
-    fetchM(firstArg, secondArg);
+    fetchM(firstArg, secondArg).catch((err) => {
+        //no message found
+        const embed = new Discord.RichEmbed()
+        .setColor(0xF46242)
+        .setDescription("No message found")
+        .setFooter(err)
+        return message.channel.send({embed});
+    });
 
 }
 
