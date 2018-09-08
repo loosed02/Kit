@@ -13,17 +13,20 @@ exports.run = (client, message, args) => {
 	} else if(numbers[1]){
 		if(parseInt(numbers[1]) > 120){
 			return message.channel.send("One number was too high");
+		} else {
+			//console.log("epic");
+			var result = rpgdice.roll(numbers[0] + "d" +  numbers[1]);
+			return message.channel.send("Result: " + result);
 		}
 	} else {
 
 		if(numbers.length === 1){
-			
+
 			var result = rpgdice.roll("1d" + args.join(' '));
 
 			if(!result){
 				message.channel.send("Incorrect syntax");
 			}
-	
 			if(result.length > 50) return message.channel.send("Too many dice");
 			message.channel.send("Result: " + result);
 

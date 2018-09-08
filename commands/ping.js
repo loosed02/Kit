@@ -8,7 +8,7 @@ exports.run = (client, message, args) => {
 	if(message.author.id === config.owner){
     async function ping(){
 		//Uptime
-		let totalSeconds = (client.uptime / 1000);
+		let totalSeconds = (process.uptime());
 		let hours = Math.floor(totalSeconds / 3600);
 		totalSeconds %= 3600;
 		let minutes = Math.floor(totalSeconds / 60);

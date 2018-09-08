@@ -5,14 +5,14 @@ exports.run = (client, message, args) => {
 
     if(!args[0]){
         const embed = new Discord.RichEmbed()
-        .setTitle("Module List")
-        .setDescription("Use kk!checkprefix to see this server's prefix\nView documentation [Here](https://kitk.us/)\n")
+        .setTitle("Module List - <> = Disabled")
+        .setDescription("Use `@kit checkprefix` to see this server's prefix\nView documentation [Here](https://kitk.us/)\n")
         .addField("Staff Commands", "```Ban, Kick, Purge, Prefix, Snipe, RoleBan```")
-        .addField("Utility Commands", "```Quote, Help, Avatar, Info, Youtube, ReportBug, Temp, Welcome, NonASCII, Imgur, Profile```")
+        .addField("Utility Commands", "```Quote, Help, Avatar, Info, Youtube, ReportBug, Temp, Welcome, NonASCII, Imgur, Profile, <coins>```")
         .addField("Searching Commands", "```Weather, Bird, Cat, Rabbit```")
         .addField("Fun Commands", "```RandColor, 8Ball, Roll, Interactions (list), Tag```")
         .addField("Text Manipulation", "```Reverse, Expand, OwO```")
-        .addField("NSFW", "```InspiroBot, UD```")
+        .addField("NSFW", "```InspiroBot, <UD>```")
         .addField("In Development", "```Forecast, Music, FML```")
         .setFooter("Use kk!help <module> to view more information")
         message.channel.send({embed});

@@ -30,6 +30,8 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
             }
     }
 
+	//console.log(searchUser);
+
     if(!searchUser){
         const embed = new Discord.RichEmbed()
 						.setColor(0xF46242)
@@ -38,7 +40,7 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 						return message.channel.send({embed});
     } else {
 
-        console.log(searchUser);
+        //console.log(searchUser);
         var Uguild = searchUser.lastMessage.guild;
         var Umessage = searchUser.lastMessage;
 
@@ -76,7 +78,10 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 					.setThumbnail(searchUser.lastMessage.author.avatarURL)
 					.setDescription(`User Info\n\n` 
 					+ "**User ID:** " + searchUser.id
+					+ "\n**Username:** " + searchUser.lastMessage.author.username + "#" + searchUser.lastMessage.author.discriminator
+					+ "\n**Bot:** " + searchUser.lastMessage.author.bot
 					+ "\n**Time since join:** " + age
+					+ "\n**Account Age:** " + dhm((Date.parse(new Date(searchUser.id /4194304 + 1420070400000))) - Date.now()).replace("-", "")
 					+ "\n \n**Roles:**\n" + " <@&" + roleVar.join(">\n <@&") + ">")
 					message.channel.send({embed});
         }

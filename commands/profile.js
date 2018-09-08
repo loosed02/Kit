@@ -323,6 +323,14 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 						.setTitle("You have to give an emoji `profile badges customequip :emote:`")
 						message.channel.send({embed});
 
+						} else if(args[2].startsWith("<a:")){
+
+							const embed = new Discord.RichEmbed()
+						.setColor(0xF46242)
+						.setTimestamp()
+						.setTitle("This doesn't work with animated emotes")
+						message.channel.send({embed});
+
 						} else {
 						var emojiID = args[2].replace(/\D/g,'');
 
@@ -349,20 +357,35 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 									} else {
 										if(IDarray.includes(message.author.id)){										
 					
-											sql.run(`UPDATE profiles SET title = "${"<:custom:" + emojiID + ">"} User" WHERE userId = "${message.author.id}"`).then(()=>{
-												const embed = new Discord.RichEmbed()
-									
-									.setTimestamp() //Write to JSON
-									.setTitle("Title Updated")
-									message.channel.send({embed});
-											}).catch(() => {
-												//console.error;
-												const embed = new Discord.RichEmbed()
-											.setColor(0xF46242)
-											.setTimestamp()
-											.setTitle("Profile does not exist (Invalid ID or not yet created)")
-											message.channel.send({embed});
-												});
+											if(args[2].startsWith("<a:")){
+												sql.run(`UPDATE profiles SET title = "${"<a:custom:" + emojiID + ">"} User" WHERE userId = "${message.author.id}"`).then(()=>{
+													const embed = new Discord.RichEmbed()
+														.setTimestamp()
+														.setTitle("Title Updated")
+														message.channel.send({embed});
+												}).catch(() => {
+													//console.error;
+													const embed = new Discord.RichEmbed()
+												.setColor(0xF46242)
+												.setTimestamp()
+												.setTitle("Profile does not exist (Invalid ID or not yet created)")
+												message.channel.send({embed});
+													});
+											} else {
+												sql.run(`UPDATE profiles SET title = "${"<:custom:" + emojiID + ">"} User" WHERE userId = "${message.author.id}"`).then(()=>{
+													const embed = new Discord.RichEmbed()
+														.setTimestamp()
+														.setTitle("Title Updated")
+														message.channel.send({embed});
+												}).catch(() => {
+													//console.error;
+													const embed = new Discord.RichEmbed()
+												.setColor(0xF46242)
+												.setTimestamp()
+												.setTitle("Profile does not exist (Invalid ID or not yet created)")
+												message.channel.send({embed});
+													});
+											}
 					
 												//sql.run(`UPDATE profiles SET rep = "${row.rep - 16}" WHERE userId = "${message.author.id}"`)
 											
