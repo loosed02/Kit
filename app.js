@@ -6,6 +6,9 @@ const config = require("./config.json");
 let settings = [];
 let data = JSON.parse(fs.readFileSync("./JSON/data.json", "utf8"));
 
+delete require.cache[require.resolve(`./JSON/blacklist.json`)];
+  var blacklist = require("./JSON/blacklist.json");
+
 //Temporary data sets - resets when the bot does
 const deletedMessage = new Set();
 const talkedRecently = new Set();
@@ -93,8 +96,8 @@ client.on("messageUpdate", async (message, oldMessage, newMessage) => {
   var oldMessageVar = await oldMessage.content;
   var newMessageVar = await newMessage;
 
-  var messageContent = message.content.replace(new RegExp(/discord(?:app\.com|\.gg)[\/invite\/]?(?:(?!.*[Ii10OolL]).[a-zA-Z0-9]{5,6}|[a-zA-Z0-9\-]{2,32})/g), "[INVITE]");
-  oldMessageVar = oldMessageVar.replace(new RegExp(/discord(?:app\.com|\.gg)[\/invite\/]?(?:(?!.*[Ii10OolL]).[a-zA-Z0-9]{5,6}|[a-zA-Z0-9\-]{2,32})/g), "[INVITE]");
+  var messageContent = message.content.trim().replace(new RegExp(/(?:discord(?:(?:.|.?dot.?)(?:gg|me|li|to)|app(?:.|.?dot.?)com\/invite)|(invite|disco)(?:.|.?dot.?)gg)\/[\da-z]+/igm), "[INVITE]")
+  oldMessageVar = oldMessageVar.trim().replace(new RegExp(/(?:discord(?:(?:.|.?dot.?)(?:gg|me|li|to)|app(?:.|.?dot.?)com\/invite)|(invite|disco)(?:.|.?dot.?)gg)\/[\da-z]+/igm), "[INVITE]")
 
 
       if(!deletedMessage[message.guild.id + "-" + channelID]){
@@ -122,7 +125,7 @@ DELETES AND EDITS
 client.on("messageDelete", (message) => {
 
 
-  var messageContent = (message.content).replace(new RegExp(/discord(?:app\.com|\.gg)[\/invite\/]?(?:(?!.*[Ii10OolL]).[a-zA-Z0-9]{5,6}|[a-zA-Z0-9\-]{2,32})/g), "[INVITE]");
+  var messageContent = (message.content.trim().replace(new RegExp(/(?:discord(?:(?:.|.?dot.?)(?:gg|me|li|to)|app(?:.|.?dot.?)com\/invite)|(invite|disco)(?:.|.?dot.?)gg)\/[\da-z]+/igm), "[INVITE]"));
   
       //console.log(message.channel.id);
       var channelID = message.channel.id;
@@ -276,13 +279,14 @@ client.on("message", async message => {
         var messageName = "DM";
       }
 
-    console.log(message.author.username + 
+    console.log(Date(Date.now()) + "\n" + message.author.username + 
        ">>\n" + messageName + 
        ">>\n" + "CMD>> '" + command + "'\n" + 
                 "ARG>> " + args.join(", ") + "\n");
     console.log('\x1b[32m', "=======");
   
-    logChannel.send("```\n" + message.author.username + 
+    logChannel.send("```js\n" + Date(Date.now()) +
+      "\n\n" + message.author.username + 
       ">>" + messageName + 
       ">>\n" + "CMD>> '" + command + "'\n" + 
                "ARG>> " + args.join(", ") + "\n" + 
@@ -291,23 +295,38 @@ client.on("message", async message => {
                
   
     try {
+
+      if(blacklist.b.includes(message.author.id)){
+        console.log("User Blacklisted: " + message.author.id);
+      } else {
       let commandFile = require(`./commands/${command}.js`);
       if(commandFile.conf.DM === true && commandFile.conf.OwnerOnly === false){
       
-        commandFile.run(client, message, args, deletedMessage, talkedRecently, embeddedRecently, weatheredRecently,
-          commandCount, coinsSet, roles, queue, sql, logChannel, settings, tossedSet);
+        function cmd(){
+          commandFile.run(client, message, args, deletedMessage, talkedRecently, embeddedRecently, weatheredRecently,
+            commandCount, coinsSet, roles, queue, sql, logChannel, settings, tossedSet)
+          }
+
+          try{ cmd(); }
+          catch(err){ logChannel.send("**ERROR:**\n```js\n" + err + "\n```\n==="); }
       
     } else if(commandFile.conf.OwnerOnly = true && message.author.id === config.owner){
 
+      function cmd(){
         commandFile.run(client, message, args, deletedMessage, talkedRecently, embeddedRecently, weatheredRecently,
-          commandCount, coinsSet, roles, queue, sql, logChannel, settings, tossedSet);
+          commandCount, coinsSet, roles, queue, sql, logChannel, settings, tossedSet)
+        }
 
-      } else {
+        try{ cmd(); }
+        catch(err){ logChannel.send("**ERROR:**\n```js\n" + err + "\n```\n==="); }
+
+     } else if(commandFile.conf.DM === false){
         const embed = new Discord.RichEmbed()
       .setColor(0xF46242)
-      .setTitle("This command is disabled")
+      .setTitle("This command is disabled until further notice, view k?ann for more info")
       message.channel.send({embed});
       }
+    }
     } catch (err) {
       logChannel.send("Invalid command: " + err)
       console.error("Invalid command: " + err);
@@ -317,6 +336,15 @@ client.on("message", async message => {
   
   
 });
+});
+
+client.on("error", async error => {
+
+console.error(error);
+
+var logChannel = client.channels.find('id', config.logChannel);
+await logChannel.send("```js\n" + Date(Date.now()) + '\n```\n***ERROR:***\n```js\nLikely connection reset.\nERR: ' + error + '\n```');
+
 });
 
 client.login(config.token);
