@@ -201,21 +201,21 @@ client.on("message", async message => {
           (message.content.indexOf(botMentionX)))  return;
     }
     
-    var args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+    var args = message.content.slice(config.prefix.length).match(/[^\s"]+|"([^"]*)"/g);
     var command = args.shift().toLowerCase();
     
     if(message.content.startsWith(customPrefix)){
-    args = message.content.slice(customPrefix.length).trim().split(/ +/g);
+    args = message.content.slice(customPrefix.length).match(/[^\s"]+|"([^"]*)"/g);
     command = args.shift().toLowerCase();
     }
   
     if(message.content.startsWith(botMention)){
-      args = message.content.slice(botMention.length).trim().split(/ +/g);
+      args = message.content.slice(botMention.length).match(/[^\s"]+|"([^"]*)"/g);
       command = args.shift().toLowerCase();
       }
   
       if(message.content.startsWith(botMentionX)){
-        args = message.content.slice(botMentionX.length).trim().split(/ +/g);
+        args = message.content.slice(botMentionX.length).match(/[^\s"]+|"([^"]*)"/g);
         command = args.shift().toLowerCase();
         }
   
