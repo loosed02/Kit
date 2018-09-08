@@ -20,3 +20,4 @@ package-lock.json
 package.json
 
 # End of https://www.gitignore.io/api/java
+*.save
