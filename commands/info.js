@@ -12,7 +12,7 @@ exports.run = (client, message) => {
 	.setDescription(
 		"**Authors: ** Kaboodle#4206, Steppie#9845" + "\n" + 
 		"**Guilds/Users: **" + `${client.guilds.size}/${client.users.size}` + "\n" +
-		"**Art:** " + "[マニアニ](https://twitter.com/maniani0122))" + "\n" +
+		"**Art:** " + "[マニアニ](https://twitter.com/maniani0122)" + "\n" +
 		"**Website:** " + "[Link](https://bot.kitk.us/)"
 	)
 
