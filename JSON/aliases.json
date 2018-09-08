@@ -11,6 +11,9 @@
     "temp":{
         "aliases": ["temperature"]
     },
+    "birb":{
+        "aliases": ["bird"]
+    },
     "roleban":{
         "aliases": ["toss"]
     },
