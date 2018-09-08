@@ -9,6 +9,7 @@ nameref.txt
 core
 
 # Extra Storage
+JSON/blacklist.json
 
 # Node Folders/Files
 node_modules/
