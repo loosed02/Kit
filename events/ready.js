@@ -16,9 +16,11 @@ exports.run = (client) => {
     client.user.setStatus('online');
     
     const logChannel = client.channels.find('id', config.logChannel);
-    logChannel.send(`<@378769654942007299>\n**Bot Login Successful**
-    Current Statistics:
-    **USERS:** ${client.users.size}
-    **GUILDS:** ${client.guilds.size}
-    >>>`)
+    logChannel.send(`\`\`\`js
+	Log-in Success:
+	Version: ${data.version}
+
+	User Cache: ${client.users.size}
+	Server Count: ${client.guilds.size}
+    \`\`\``)
   }

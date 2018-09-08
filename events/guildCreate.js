@@ -5,5 +5,5 @@ exports.run = (client, guild) => {
     const logChannel = client.channels.find('id', config.logChannel);
 
     console.log(">>>Guild Joined: " + guild.name + " (" + guild.id + ")");
-    logChannel.send("```>>>Guild Joined: " + guild.name + " (" + guild.id + ")```");
+    logChannel.send("```diff\n>>>Guild Joined: " + guild.name + " (" + guild.id + ")\n+>>>" + client.guilds.size + " Servers\n```");
 }
