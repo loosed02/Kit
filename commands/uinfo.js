@@ -41,7 +41,7 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
     } else {
 
         //console.log(searchUser);
-        var Uguild = searchUser.lastMessage.guild;
+        
         var Umessage = searchUser.lastMessage;
 
 	function dhm(t){
@@ -72,6 +72,11 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 		var color = searchUser.displayHexColor;
 	}
 
+	if(roleVar.length > 0){
+		var roleList = " <@&" + roleVar.join(">\n <@&") + ">";
+	} else {
+		var roleList = " No Roles";
+	}
 
 	const embed = new Discord.RichEmbed()
 					.setColor(color)
@@ -82,7 +87,7 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 					+ "\n**Bot:** " + searchUser.lastMessage.author.bot
 					+ "\n**Time since join:** " + age
 					+ "\n**Account Age:** " + dhm((Date.parse(new Date(searchUser.id /4194304 + 1420070400000))) - Date.now()).replace("-", "")
-					+ "\n \n**Roles:**\n" + " <@&" + roleVar.join(">\n <@&") + ">")
+					+ "\n \n**Roles:**\n" + roleList)
 					message.channel.send({embed});
         }
     }
