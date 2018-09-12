@@ -93,7 +93,7 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 		sql.get(`SELECT * FROM profiles WHERE userId ="${message.author.id}"`).then(row => {
 			async function profileA(){
 			if (!row) {
-			  await sql.run("INSERT INTO profiles (userId, username, avatar, desc, title, rep, toRep) VALUES (?, ?, ?, ?, ?, ?, ?)", [message.author.id, message.author.username, message.author.avatarURL, "Description not set", "User", 4, 10]);
+			  await sql.run("INSERT INTO profiles (userId, username, avatar, desc, title, rep, toRep) VALUES (?, ?, ?, ?, ?, ?, ?)", [message.author.id, message.author.username, message.author.avatarURL, "Description not set", "User", 4, 0]);
 			} 
 
 			async function log(str) {
