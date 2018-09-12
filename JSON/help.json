@@ -3,6 +3,10 @@
         "name": "Help",
         "description":"Displays the command list, and detailed information on specific commands \n\n**[Usage: help <command>]**"
     },
+    "note":{
+        "name": "Notepad",
+        "description":"Save any notes and bring them up later \n\n**Sub-commands:**\n`k?note edit` - Replaces the entire note with the given text\n`k?note append` - Adds a line with the content you've given, to the end of the note, preserving any previous content"
+    },
     "quote":{
         "name": "Message Quoter",
         "description": "Displays a message's content and author\n\n**[Usage: quote <message-id> <optional: #channel>]**"
