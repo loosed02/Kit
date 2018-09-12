@@ -8,6 +8,10 @@ let data = JSON.parse(fs.readFileSync("./JSON/data.json", "utf8"));
 
 delete require.cache[require.resolve(`./JSON/blacklist.json`)];
   var blacklist = require("./JSON/blacklist.json");
+//chatbot
+var Ector = require('ector');
+var ector = new Ector();
+
 
 //Temporary data sets - resets when the bot does
 const deletedMessage = new Set();
@@ -155,6 +159,27 @@ MESSAGE
 //On-message event
 client.on("message", async message => {
 
+if(message.author.id === config.owner){
+console.log(message.content);
+}
+
+  if(message.author.bot == false){
+
+if(message.channel.id == "110374153562886144" || message.channel.id == "468690756899438603" || message.channel.id == "110373943822540800")
+  sql.get(`SELECT * FROM ai`).then(row => {
+
+    if(message.content.includes("<@") || message.content.includes("<#")){
+      
+    } else {
+      sql.run(`UPDATE ai SET aiData = "${row.aiData + " " + message.content.replace(/\n/g, "").replace(new RegExp("\"", 'g'), "")}"`);
+    }
+  });
+
+
+}
+
+  /* DELETE AT END OF EXPERIMENT */
+
   if(message.channel.type === "dm") return;
 
   sql.get(`SELECT * FROM prefixes WHERE serverId ="${message.guild.id}"`).then(row => {
@@ -190,6 +215,7 @@ client.on("message", async message => {
 		  });
   }
   
+    var pLength = config.prefix.length;
     var botMention = "<@" + client.user.id + ">";
     var botMentionX = "<@!" + client.user.id + ">";
   
@@ -201,21 +227,24 @@ client.on("message", async message => {
           (message.content.indexOf(botMentionX)))  return;
     }
     
-    var args = message.content.slice(config.prefix.length).match(/[^\s"]+|"([^"]*)"/g);
+    var args = message.content.slice(config.prefix.length).trim().match(/[^\s"]+|"([^"]*)"/g);
     var command = args.shift().toLowerCase();
     
     if(message.content.startsWith(customPrefix)){
-    args = message.content.slice(customPrefix.length).match(/[^\s"]+|"([^"]*)"/g);
+    pLength = customPrefix.length;
+    args = message.content.slice(customPrefix.length).trim().match(/[^\s"]+|"([^"]*)"/g);
     command = args.shift().toLowerCase();
     }
   
     if(message.content.startsWith(botMention)){
-      args = message.content.slice(botMention.length).match(/[^\s"]+|"([^"]*)"/g);
+      pLength = botMention.length;
+      args = message.content.slice(botMention.length).trim().match(/[^\s"]+|"([^"]*)"/g);
       command = args.shift().toLowerCase();
       }
   
       if(message.content.startsWith(botMentionX)){
-        args = message.content.slice(botMentionX.length).match(/[^\s"]+|"([^"]*)"/g);
+        pLength = botMentionX.length;
+        args = message.content.slice(botMentionX.length).trim().match(/[^\s"]+|"([^"]*)"/g);
         command = args.shift().toLowerCase();
         }
   
@@ -283,16 +312,7 @@ client.on("message", async message => {
        ">>\n" + messageName + 
        ">>\n" + "CMD>> '" + command + "'\n" + 
                 "ARG>> " + args.join(", ") + "\n");
-    console.log('\x1b[32m', "=======");
-  
-    logChannel.send("```js\n" + Date(Date.now()) +
-      "\n\n" + message.author.username + 
-      ">>" + messageName + 
-      ">>\n" + "CMD>> '" + command + "'\n" + 
-               "ARG>> " + args.join(", ") + "\n" + 
-              "```");
-  
-               
+    console.log('\x1b[32m', "=======");               
   
     try {
 
@@ -300,6 +320,15 @@ client.on("message", async message => {
         console.log("User Blacklisted: " + message.author.id);
       } else {
       let commandFile = require(`./commands/${command}.js`);
+        
+      //logger
+      logChannel.send("```js\n" + Date(Date.now()) +
+      "\n\n" + message.author.username + 
+      ">>" + messageName + 
+      ">>\n" + "CMD>> '" + command + "'\n" + 
+               "ARG>> " + args.join(", ") + "\n" + 
+              "```");
+
       if(commandFile.conf.DM === true && commandFile.conf.OwnerOnly === false){
       
         function cmd(){
@@ -314,7 +343,7 @@ client.on("message", async message => {
 
       function cmd(){
         commandFile.run(client, message, args, deletedMessage, talkedRecently, embeddedRecently, weatheredRecently,
-          commandCount, coinsSet, roles, queue, sql, logChannel, settings, tossedSet)
+          commandCount, coinsSet, roles, queue, sql, logChannel, settings, tossedSet, ector, pLength)
         }
 
         try{ cmd(); }
@@ -326,9 +355,14 @@ client.on("message", async message => {
       .setTitle("This command is disabled until further notice, view k?ann for more info")
       message.channel.send({embed});
       }
+    
     }
     } catch (err) {
-      logChannel.send("Invalid command: " + err)
+
+      logChannel.send(`\`\`\`js
+      Invalid command:
+${err}
+      \`\`\``)
       console.error("Invalid command: " + err);
       //message.channel.send("err: " + err)
     }
