@@ -3,7 +3,7 @@
         "aliases": ["pong"]
     },
     "8ball":{
-        "aliases": ["is", "does", "am", "are", "will", "do", "have"]
+        "aliases": ["is", "does", "am", "are", "will", "do", "have", "can"]
     },
     "owo":{
         "aliases": ["uwu"]
