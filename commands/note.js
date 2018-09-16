@@ -53,8 +53,7 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
                 sql.run(`UPDATE notes SET note = "${row.note + "\n" + argV.slice(1).join(' ').replace(new RegExp(`"`, `g`), `''`)}" WHERE ownerId = "${message.author.id}"`);
                 message.channel.send(`\`${argV.slice(1).join(' ')}\` Added to note`)
                 }
-              } 
-    
+              }     
           }).catch((err) => {
             console.error(err);
            
@@ -73,7 +72,9 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
                    return message.channel.send({embed});
               } else {
                 sql.run(`UPDATE notes SET note = "${argV.slice(1).join(' ').replace(new RegExp("{n}", 'g'), "\n").replace(new RegExp(`"`, 'g'), `''`)}" WHERE ownerId ="${message.author.id}"`);
-                message.channel.send(`Note updated`);
+                 const embed = new Discord.RichEmbed()
+                   .setDescription("Note updated")
+                   return message.channel.send({embed});
               }
 
           }).catch((err) => {
@@ -93,7 +94,10 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
               } else {
 
                 sql.run(`UPDATE notes SET note = ""`);
-                message.channel.send(`Note Cleared`);
+                 const embed = new Discord.RichEmbed()
+                   .setColor(0xF46242)
+                   .setDescription("Note cleared")
+                   return message.channel.send({embed});
               } 
     
           }).catch((err) => {
@@ -118,7 +122,7 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
                     var rowNote = "Note is empty";
                 }
                 message.channel.send('```py\nNote: ' + message.author.tag + '\n```');
-                message.channel.send('```diff\n' + rowNote + '\n```');
+                message.channel.send('```md\n' + rowNote + '\n```');
               } 
     
           }).catch((err) => {
