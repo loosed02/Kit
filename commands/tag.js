@@ -184,6 +184,7 @@ if(message.author.id === "378769654942007299"){
             taggerContent = taggerContent.replace(new RegExp("{channelid}", 'g'), message.channel.id);
             taggerContent = taggerContent.replace(new RegExp("{callerid}", 'g'), message.author.id);   
             taggerContent = taggerContent.replace(new RegExp("{args}", 'g'), args.slice(1).join(' '));
+	    taggerContent = taggerContent.replace(new RegExp("{caller.name}", 'g'), message.author.username);
     
                 async function fetchU(){
                 var user = await client.fetchUser(row.ownerID);
@@ -621,7 +622,7 @@ list().catch((err) => {message.reply(err)});
             taggerContent = taggerContent.replace(new RegExp("{serverid}", 'g'), message.guild.id);
             taggerContent = taggerContent.replace(new RegExp("{channelid}", 'g'), message.channel.id); 
             taggerContent = taggerContent.replace(new RegExp("{callerid}", 'g'), message.author.id);           
-           
+            taggerContent = taggerContent.replace(new RegExp("{caller.name}", 'g'), message.author.username);
             taggerContent = taggerContent.replace(new RegExp("{channel}", 'g'), "<#" + message.channel.id + ">");
                 
                 var i = 1;
@@ -689,6 +690,7 @@ list().catch((err) => {message.reply(err)});
                 a = a + 1;
             }
 
+	    taggerContent = taggerContent.replace(new RegExp("{caller.name}", 'g'), message.author.username);
             taggerContent = taggerContent.replace(new RegExp("{n}", 'g'), "\n");
             taggerContent = taggerContent.replace(new RegExp("{serverid}", 'g'), message.guild.id);
             taggerContent = taggerContent.replace(new RegExp("{channelid}", 'g'), message.channel.id); 
