@@ -14,7 +14,7 @@ exports.run = (client, message, args) => {
         .addField("Text Manipulation", "```Reverse, Expand, OwO```")
         .addField("NSFW", "```InspiroBot, <UD>```")
         .addField("In Development", "```Forecast, Music, FML```")
-        .setFooter("Use kk!help <module> to view more information")
+        .setFooter("Use k?help <module> to view more information")
         message.channel.send({embed});
     } else if (!help[args[0].toLowerCase()]){
         const embed = new Discord.RichEmbed()
