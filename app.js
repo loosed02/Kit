@@ -9,8 +9,9 @@ let data = JSON.parse(fs.readFileSync("./JSON/data.json", "utf8"));
 delete require.cache[require.resolve(`./JSON/blacklist.json`)];
   var blacklist = require("./JSON/blacklist.json");
 //chatbot
-var Ector = require('ector');
-var ector = new Ector();
+//var Ector = require('ector');
+//var ector = new Ector();
+var ector = "h"; //need a temp replacement
 
 
 //Temporary data sets - resets when the bot does
@@ -352,7 +353,7 @@ if(message.channel.id == "110374153562886144" || message.channel.id == "46869075
      } else if(commandFile.conf.DM === false){
         const embed = new Discord.RichEmbed()
       .setColor(0xF46242)
-      .setTitle("This command is disabled until further notice, view k?ann for more info")
+      .setTitle("This command is disabled")
       message.channel.send({embed});
       }
     
