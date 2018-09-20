@@ -160,8 +160,10 @@ MESSAGE
 //On-message event
 client.on("message", async message => {
 
+  
+
 if(message.author.id === config.owner){
-console.log(message.content);
+//console.log(message.content);
 }
 
   if(message.author.bot == false){
@@ -255,6 +257,18 @@ if(message.channel.id == "110374153562886144" || message.channel.id == "46869075
 
         for (const key of Object.keys(aliasAR)) if (aliasAR[key].aliases.includes(command)) command = key;
   
+
+        //Points iterator
+        sql.get(`SELECT * FROM profile WHERE userId ="${message.author.id}"`).then(row => {
+          if(!message.author.bot){
+            if(!row){
+              console.log('no profile');
+            } else {
+             sql.run(`UPDATE profile SET cmds = "${row.cmds + 1}" WHERE userId = "${message.author.id}"`);
+            }
+          }
+        });
+
     //Eval
     if(command === "eval"){
       async function evalCMD(){
@@ -347,7 +361,9 @@ if(message.channel.id == "110374153562886144" || message.channel.id == "46869075
           commandCount, coinsSet, roles, queue, sql, logChannel, settings, tossedSet, ector, pLength)
         }
 
-        try{ cmd(); }
+        try{
+          cmd(); 
+        }
         catch(err){ logChannel.send("**ERROR:**\n```js\n" + err + "\n```\n==="); }
 
      } else if(commandFile.conf.DM === false){
