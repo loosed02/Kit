@@ -115,6 +115,10 @@
         "name": "Ban",
         "description":"Bans a mentioned user and adds an entry to the audit log with the reason \n\n**[Usage: ban <@user> <reason>]**"
     },
+    "slowmode":{
+        "name": "Chat Slow Mode",
+        "description": "Enables Discord's Slow Mode\n\n**Sub-Commands**\n`slowmode off` - Disables slow mode\n`slowmode #` - Sets the slow mode to the specified amount of seconds (1-120)"
+    },
     "youtube":{
         "name": "Youtube Search",
         "description":"Finds the first video for the search terms you give \n\n**[Usage: youtube/yt <search terms>]**"
