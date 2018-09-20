@@ -27,7 +27,7 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 		  coinsSet.delete(message.author.id);
 		}, 86400000);
 		//execute module here
-		sql.get(`SELECT rep FROM profiles WHERE userId ="${message.author.id}"`).then(row => {
+		sql.get(`SELECT quarters FROM profile WHERE userId ="${message.author.id}"`).then(row => {
 			if(!row){
 				//make profile first
 				const embed = new Discord.RichEmbed()
@@ -39,14 +39,14 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 
 			} else {
 				if(donorIDArray.includes(message.author.id)){
-					sql.run(`UPDATE profiles SET rep = "${row.rep + 4}" WHERE userId = "${message.author.id}"`);
+					sql.run(`UPDATE profile SET quarers = "${parseInt(row.quarters) + 4}" WHERE userId = "${message.author.id}"`);
 		const embed = new Discord.RichEmbed()
 
 				.setTimestamp()
 				.setDescription("You got 4 quarters")
 				message.channel.send({embed});
 				} else {
-		sql.run(`UPDATE profiles SET rep = "${row.rep + 1}" WHERE userId = "${message.author.id}"`);
+		sql.run(`UPDATE profile SET quarters = "${parseInt(row.quarters) + 1}" WHERE userId = "${message.author.id}"`);
 		const embed = new Discord.RichEmbed()
 
 				.setTimestamp()
@@ -69,7 +69,7 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 
 	} else if(args[0] === "get"){
 		//search for user
-		sql.get(`SELECT rep FROM profiles WHERE userId ="${args[0]}"`).then(row => {
+		sql.get(`SELECT quarters FROM profile WHERE userId ="${args[0]}"`).then(row => {
 			if(!row){
 				//make profile first
 				const embed = new Discord.RichEmbed()
@@ -80,11 +80,11 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 					message.channel.send({embed});
 
 			} else {
-		//sql.run(`UPDATE profiles SET rep = "${row.rep + 1}" WHERE userId = "${message.author.id}"`);
+		//sql.run(`UPDATE profiles SET quarters = "${row.quarters + 1}" WHERE userId = "${message.author.id}"`);
 		const embed = new Discord.RichEmbed()
 
 				.setTimestamp()
-				.setDescription("This user has " + row.rep + " quarters")
+				.setDescription("This user has " + row.quarters + " quarters")
 				message.channel.send({embed});
 				}
 			//you got one point
@@ -92,26 +92,32 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 
 		});
 
+	} else if(args[0] === "give"){
+
+		if(message.author.id === "378769654942007299"){
+			sql.run(`UPDATE profile SET quarters = "${args[1]}" WHERE userId = "${args[2]}"`);
+		}
+
 	} else {
 		//display sender's
-		sql.get(`SELECT rep FROM profiles WHERE userId ="${message.author.id}"`).then(row => {
+		sql.get(`SELECT quarters FROM profile WHERE userId ="${message.author.id}"`).then(row => {
 			if(!row){
 				//make profile first
 				const embed = new Discord.RichEmbed()
 					.setColor(0xF46242)
 					.setTimestamp()
 					.setDescription("Create a profile first")
-					.setFooter("Use `k?profile`")
+					.setFooter("Use k?profile create")
 					message.channel.send({embed});
 
 			} else {
 				if (coinsSet.has(message.author.id)) {
-		//sql.run(`UPDATE profiles SET rep = "${row.rep + 1}" WHERE userId = "${message.author.id}"`);
+		//sql.run(`UPDATE profiles SET quarters = "${row.quarters + 1}" WHERE userId = "${message.author.id}"`);
 		const embed = new Discord.RichEmbed()
 
 				.setTimestamp()
 				.setColor(0xF46242)
-				.setDescription("You have " + row.rep + " quarters")
+				.setDescription("You have " + row.quarters + " quarters")
 				message.channel.send({embed});
 				
 			} else {
@@ -119,7 +125,7 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 
 				.setTimestamp()
 				.setColor(0x32ff58)
-				.setDescription("You have " + row.rep + " quarters")
+				.setDescription("You have " + row.quarters + " quarters")
 				message.channel.send({embed});
 			}
 			//you got one point
