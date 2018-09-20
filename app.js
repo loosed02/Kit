@@ -23,6 +23,7 @@ const commandCount = new Set();
 const coinsSet = new Set();
 const roles = new Set();
 const tossedSet = new Set();
+const slowMode = new Set();
 let queue = {}; //NOTE - this can probably be removed
 
 //SQLite database file
@@ -358,7 +359,7 @@ if(message.channel.id == "110374153562886144" || message.channel.id == "46869075
 
       function cmd(){
         commandFile.run(client, message, args, deletedMessage, talkedRecently, embeddedRecently, weatheredRecently,
-          commandCount, coinsSet, roles, queue, sql, logChannel, settings, tossedSet, ector, pLength)
+          commandCount, coinsSet, roles, queue, sql, logChannel, settings, tossedSet, ector, pLength, slowMode)
         }
 
         try{
@@ -380,7 +381,7 @@ if(message.channel.id == "110374153562886144" || message.channel.id == "46869075
       Invalid command:
 ${err}
       \`\`\``)
-      console.error("Invalid command: " + err);
+      console.error;
       //message.channel.send("err: " + err)
     }
   }
