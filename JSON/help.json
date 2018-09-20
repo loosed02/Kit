@@ -5,7 +5,7 @@
     },
     "note":{
         "name": "Notepad",
-        "description":"Save any notes and bring them up later \n\n**Sub-commands:**\n`k?note edit` - Replaces the entire note with the given text\n`k?note append` - Adds a line with the content you've given, to the end of the note, preserving any previous content"
+        "description":"Save any notes and bring them up later \n\n**Sub-commands:**\n`k?note create` - Creates a notepad (Limit 1)\n`k?note edit` - Replaces the entire note with the given text\n`k?note append` - Adds a line with the content you've given, to the end of the note, preserving any previous content"
     },
     "quote":{
         "name": "Message Quoter",
@@ -17,7 +17,7 @@
     },
     "tag":{
         "name": "Tag Handler",
-        "description":"Saves text to be accessed later\nCan be deleted by force with **kk!t forcedelete tagname**, but only by a moderator\n\nTags can use the following:\n{arg#} - Is replaced with an argument (ie. {arg1})\n{carg#} - Does the same as {arg#}, but replaces with the caller's name if missing\n{channel} - Is replaced with the message's channel\n{caller} - Is replaced with the caller (ie. {caller} = @user)\n{num:#;} - Generates a random number, # being the number\n{choose;item;item;item} - Chooses from the given items (can be < 3 >)\n{callerid} - Is replaced with the caller's ID\n{caller.name} - Is replaced with the caller's username\n{n} - Adds a new line (Fix for oneline in YNA)\n**Most YNA code will work**\n\n**Usage:**\ntag create <tagname> <tag content> | tag <tagname>\ntag <tagname> cdel <true/false> `<-enables automatic caller deletion`"
+        "description":"Saves text to be accessed later\nCan be deleted by force with **k?t forcedelete tagname**, but only by a moderator\n\nTags can use the following:\n{arg#} - Is replaced with an argument (ie. {arg1})\n{carg#} - Does the same as {arg#}, but replaces with the caller's name if missing\n{channel} - Is replaced with the message's channel\n{caller} - Is replaced with the caller (ie. {caller} = @user)\n{num:#;} - Generates a random number, # being the number\n{choose;item;item;item} - Chooses from the given items (can be < 3 >)\n{callerid} - Is replaced with the caller's ID\n{caller.name} - Is replaced with the caller's username\n{n} - Adds a new line (Fix for oneline in YNA)\n**Most YNA code will work**\n\n**Usage:**\ntag create <tagname> <tag content> | tag <tagname>\ntag <tagname> cdel <true/false> `<-enables automatic caller deletion`"
     },
     "temp":{
         "name": "Temperature Converters",
@@ -81,7 +81,7 @@
     },
     "prefix":{
         "name": "Prefix",
-        "description":"Changes the bot's prefix **(Note: Bot will always respond to kk! regardless of custom prefix)** \n\n**[Usage: prefix/setprefix <prefix>]**"
+        "description":"Changes the bot's prefix **(Note: Bot will always respond to k? regardless of custom prefix)** \n\n**[Usage: prefix/setprefix <prefix>]**"
     },
     "cat":{
         "name": "Meow",
@@ -145,6 +145,6 @@
     },
     "profile":{
         "name": "User Profiles",
-        "description":"Creates a user profile, or views another user's. Example: `kk!profile @user` to view another user's, if already created, or `kk!profile` to view your own.\n\n**Descriptions must be less than 175 chars**\n\n**Badges:**\nUse `profile badges` to view the list of badges\nUse `profile badges customequip :emoji:` to equip a custom badge\nUse `profile badges remove` to remove equipped badge"
+        "description":"Creates a user profile, or views another user's.\n\n**Examples:**\n`k?profile @user` to view another user's, if already created, or `k?profile` to view your own.\n`k?profile create` to create their own\n`k?profile edit desc` to set the description text\n`k?profile edit color #hex` to set the accent color to a hex code\n\n**Descriptions must be less than 360 chars**\n\n**Badges:**\nUse `profile badges` to view the list of badges\nUse `profile badges customequip :emoji:` to equip a custom badge\nUse `profile badges remove` to remove equipped badge"
     }
 }
