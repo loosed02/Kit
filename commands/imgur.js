@@ -1,7 +1,10 @@
 
 const Discord = require("discord.js");
 const imgur = require('imgur');
-imgur.setClientId('c6c1852dbbe9603');
+
+const config = require('./../config.json')
+
+imgur.setClientId(config.imgur);
 imgur.setAPIUrl('https://api.imgur.com/3/');
 
 exports.run = (client, message, args) => {
@@ -24,8 +27,10 @@ exports.run = (client, message, args) => {
 		const embed = new Discord.RichEmbed()
 		.setColor(0xF46242)
 		.setTitle("An Error Occured")
-		.setFooter(err);
+		.setFooter(err.message.message);
 		message.channel.send({embed});
+
+		console.error(err);
 	})
     message.channel.stopTyping();
 }
