@@ -3,7 +3,11 @@ const Canvas = require("canvas-prebuilt");
 const fs = require("fs");
 const neko = require('nekocurl');
 
-const config = require("./config.json");
+const imgur = require('imgur');
+imgur.setClientId('0a79ab802680b6b');
+imgur.setAPIUrl('https://api.imgur.com/3/');
+
+const config = require("./../config.json");
 
 let Image = Canvas.Image;
 let canvas = new Canvas(1635, 625);
@@ -19,6 +23,11 @@ var staff = [
   "454461184792461312"
 ];
 
+var boat = [
+  "204890104349589504",
+  "435855803363360779"
+];
+
 
 var games = [
   "476445588418723841" ,"476445588951400480" ,"476445589031092235" ,"476445589488271362" , "491419851886428170",
@@ -31,8 +40,8 @@ var games = [
   "476506134753181706" ,"476506134812033024" ,"476506134946250752" ,"476506176985628673" ,
   "476506178185330688" ,"476506179523313664" ,"476506180014047262" ,"476506180550918154" ,
   "476506180613701633" ,"476506180714233876" ,"476506180890394643" ,"476506180928143360" ,
-  "476510622121459723" ,"476510621806886913", "476961723912421376" ,"476510621790371852" , "476510621949493273" ,
-  "476510622020796427" ,"476510622247419917", "478273923763535873" ,"476510622352408576" , "476514178031681556" ,
+  "476510622121459723" ,"476510621806886913", "476961723912421376" ,"476510621790371852" , "476510621949493273" , "493094743941840926", "493094742251274241",
+  "476510622020796427" ,"476510622247419917", "478273923763535873" ,"476510622352408576" , "476514178031681556" , 
   "476514177742143530" ,"476514177641611266" ,"476514177918304288" ,"476514178098528256" ,
   "476514178132344832" ,"476514177712652289" ,"476514178010578964" ,"476514177872035872" ,
   "476514178224488460" ,"476516801761771530" ,"476516801765703681" ,"476516801446936592" ,
@@ -54,7 +63,7 @@ var Egames = [
   "<:icon:476506134753181706>" ,"<:robot:476506134812033024>" ,"<:pilot:476506134946250752>" ,"<:icon:476506176985628673>" ,
   "<:dva:476506178185330688>" ,"<:reaper:476506179523313664>" ,"<:tracer:476506180014047262>" ,"<:mccree:476506180550918154>" ,
   "<:mercy:476506180613701633>" ,"<:mei:476506180714233876>" ,"<:sombra:476506180890394643>" ,"<:reinhardt:476506180928143360>" ,
-  "<:arceus:476510622121459723>" ,"<:rayquaza:476510621806886913>", "<:lucario:476961723912421376>" ,"<:greninja:476510621790371852>" ,"<:pikachu:476510621949493273>" ,
+  "<:arceus:476510622121459723>" ,"<:rayquaza:476510621806886913>", "<:lucario:476961723912421376>" ,"<:greninja:476510621790371852>" ,"<:pikachu:476510621949493273>" , "<:zeraora:493094743941840926>", "<:garchomp:493094742251274241>",
   "<:sylveon:476510622020796427>" ,"<:mew:476510622247419917>", "<:mimikyu:478273923763535873>" ,"<:icon:476510622352408576>","<:icon:476514178031681556>" ,
   "<:emily:476514177742143530>" ,"<:grandpa:476514177641611266>" ,"<:hench:476514177918304288>" ,"<:krobus:476514178098528256>" ,
   "<:shane:476514178132344832>" ,"<:abigail:476514177712652289>" ,"<:alex:476514178010578964>" ,"<:dwarf:476514177872035872>" ,
@@ -68,13 +77,28 @@ var Egames = [
 
 
 exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRecently, weatheredRecently, commandCount, coinsSet, roles, queue, sql, logChannel, settings, tossedSet, ector, pLength) => {
+
+  //Donor array constructor
+  var kitSupport = client.guilds.find('id', '449263514436239360');
+var donorArray = kitSupport.roles.find('id', '479013774880276502').members.array();
+var donorIDArray = [];
+
+var i = 0;
+while((i+1) <= donorArray.length){
+  donorIDArray[i] = donorArray[i].user.id;
+  i = i+1;
+}
+
+var IDarray = donorIDArray;
+
+
   try{
 
     //Standard profile card
-    async function profiler(id, color, quarters, desc, badge1, badge2, cmds){
-      let lines = desc.replace(new RegExp(`''`, `g`), `"`).replace(/(.{36})/g,'$1\n').split('\n');
+    async function profiler(id, color, quarters, desc, badge1, badge2, cmds, bg){
+      let lines = desc.replace(new RegExp(`''`, `g`), `"`).replace(/(.{41})/g,'$1\n').split('\n');
       if (!lines[lines.length-1]) lines = lines.slice(0,-1);
-      console.log(lines);
+      console.log(bg);
       
       message.channel.startTyping();
       var member = await client.fetchUser(id);
@@ -85,6 +109,24 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
 
       ctx.font = `80px "Gadugi"`;
       ctx.fillStyle = '#000';
+
+      if(bg){
+
+        try{
+        img.src = await neko.get(bg, { autoString: false })
+        console.log(img);
+        ctx.drawImage(img, 0, 0, img.width,    img.height,     // source rectangle
+          0, 0, canvas.width, canvas.height); // destination rectangle
+        }
+        catch(err){
+          message.channel.send("Background URL incorrect, try uploading it to imgur and try that link")
+          message.channel.stopTyping();
+        }
+        
+        }
+        
+      img.src = fs.readFileSync('./backgrounds/bg4.png');
+      ctx.drawImage(img, 0, 0);
 
       img.src = await neko.get(member.avatarURL, { autoString: false });
       ctx.drawImage(img, 51, 27, 577, 577);
@@ -121,16 +163,16 @@ exports.run = (client, message, args, deletedMessage, talkedRecently, embeddedRe
       var it = 1;
 
       while(lines.length >= it){
-        ctx.fillText(lines[it-1] , 675, x);
+        ctx.fillText(lines[it-1].trim() , 676, x);
         it = it+1;
         x = x + 35;
       }
 
       ctx.fillStyle = '#000';
       ctx.font = `36px "Gadugi"`;
-      ctx.textAlign="center";
-      ctx.fillText(cmds , 1500,168);
-      ctx.fillText(`${Math.floor(0.5 * Math.sqrt(cmds + 1))}` , 1500,358);
+      ctx.textAlign="start";
+      ctx.fillText(`${Math.floor(0.5 * Math.sqrt(cmds + 1))}` , 1442,118);
+      ctx.fillText(cmds , 1442,164);
       ctx.textAlign="start";
 
 message.channel.send({
@@ -139,8 +181,9 @@ message.channel.send({
     name: 'file.jpg'
   }]
 })
-  .then(message.channel.stopTyping())
-  .catch(console.error);
+  .then().catch(console.error);
+
+  message.channel.stopTyping();
 }
 
 //Summary card, points only, TO DO
@@ -188,7 +231,6 @@ sql.get(`SELECT * FROM profile WHERE userId ="${message.author.id}"`).then(row =
     
   }
 });
-
 } else if(args[0] === "edit"){
 
   sql.get(`SELECT * FROM profile WHERE userId ="${message.author.id}"`).then(row => {
@@ -214,6 +256,64 @@ sql.get(`SELECT * FROM profile WHERE userId ="${message.author.id}"`).then(row =
     .setTimestamp() //Write to JSON
     .setTitle("Color updated")
     message.channel.send({embed});
+
+    } else if(args[1] === "background" || args[1] === "bg"){
+
+      var Attachment = (message.attachments).array();
+
+      if(IDarray.includes(message.author.id)){
+
+        if(args[2] === "remove"){
+
+          sql.run(`UPDATE profile SET bg = null WHERE userId = "${message.author.id}"`);
+
+          const embed = new Discord.RichEmbed()
+        .setTimestamp()
+        .setTitle("Background updated")
+        message.channel.send({embed});
+        } else {
+      
+      if(!Attachment[0]){
+        if(!args[2]) return message.channel.send("No link or image was given");
+        var imgUrl = args[2];
+      } else {
+        var imgUrl = Attachment[0].url;
+      }
+
+
+      message.channel.startTyping();
+      imgur.uploadUrl(imgUrl)
+        .then(function (json) {
+      if(!json.data.link) return message.channel.send("There was an error");
+      sql.run(`UPDATE profile SET bg = "${json.data.link}" WHERE userId = "${message.author.id}"`);
+
+      const embed = new Discord.RichEmbed()
+    .setTimestamp() //Write to JSON
+    .setTitle("Background updated")
+    message.channel.send({embed});
+
+      }).catch((err) => {
+
+        const embed = new Discord.RichEmbed()
+          .setColor(0xF46242)
+          .setTitle("An Error Occured while uploading this image")
+          .setFooter(err);
+        return message.channel.send({embed});
+
+        console.error(err);
+      })
+    message.channel.stopTyping();
+
+
+      }
+
+    } else {
+      const embed = new Discord.RichEmbed()
+        .setColor(0xF46242)
+        .setTimestamp()
+        .setDescription("This command requires `Donator` or `Contributor`")
+        message.channel.send({embed});
+    }
 
     } else if(args[1] === "desc"){
 
@@ -529,10 +629,15 @@ message.channel.send({embed});
       .setFooter("Use k?profile create")
       return message.channel.send({embed});
     } else {
-      if(staff.includes(message.author.id)){
-        profiler(message.author.id, row.color, row.quarters, row.desc, `https://cdn.discordapp.com/emojis/${row.badge}.png?v=1`, `https://cdn.discordapp.com/emojis/314068430787706880.png?v=1`, row.cmds);
+      var argsVar = message.author.id;
+      if(staff.includes(argsVar)){
+        profiler(argsVar, row.color, row.quarters, row.desc, `https://cdn.discordapp.com/emojis/${row.badge}.png?v=1`, `https://cdn.discordapp.com/emojis/314068430787706880.png?v=1`, row.cmds, row.bg); //staff
+      } else if(boat.includes(argsVar)){
+        profiler(argsVar, row.color, row.quarters, row.desc, `https://cdn.discordapp.com/emojis/${row.badge}.png?v=1`, `https://cdn.discordapp.com/emojis/478057319989510173.png?v=1`, row.cmds, row.bg); //boat
+      } else if(IDarray.includes(argsVar)){
+        profiler(argsVar, row.color, row.quarters, row.desc, `https://cdn.discordapp.com/emojis/${row.badge}.png?v=1`, `https://cdn.discordapp.com/emojis/479757981949493268.png?v=1`, row.cmds, row.bg); //donor
       } else {
-        profiler(message.author.id, row.color, row.quarters, row.desc, `https://cdn.discordapp.com/emojis/${row.badge}.png?v=1`, `https://cdn.discordapp.com/emojis/490744262594396170.png?v=1`, row.cmds);//490744262594396170
+        profiler(argsVar, row.color, row.quarters, row.desc, `https://cdn.discordapp.com/emojis/${row.badge}.png?v=1`, `https://cdn.discordapp.com/emojis/490744262594396170.png?v=1`, row.cmds, row.bg); //blank
       }
     }
     });
@@ -554,9 +659,13 @@ message.channel.send({embed});
             message.channel.send({embed});
           } else {
             if(staff.includes(argsVar)){
-              profiler(argsVar, row.color, row.quarters, row.desc, `https://cdn.discordapp.com/emojis/${row.badge}.png?v=1`, `https://cdn.discordapp.com/emojis/314068430787706880.png?v=1`, row.cmds);
+              profiler(argsVar, row.color, row.quarters, row.desc, `https://cdn.discordapp.com/emojis/${row.badge}.png?v=1`, `https://cdn.discordapp.com/emojis/314068430787706880.png?v=1`, row.cmds, row.bg); //staff
+            } else if(boat.includes(argsVar)){
+              profiler(argsVar, row.color, row.quarters, row.desc, `https://cdn.discordapp.com/emojis/${row.badge}.png?v=1`, `https://cdn.discordapp.com/emojis/478057319989510173.png?v=1`, row.cmds, row.bg); //boat
+            } else if(IDarray.includes(argsVar)){
+              profiler(argsVar, row.color, row.quarters, row.desc, `https://cdn.discordapp.com/emojis/${row.badge}.png?v=1`, `https://cdn.discordapp.com/emojis/479757981949493268.png?v=1`, row.cmds, row.bg); //donor
             } else {
-              profiler(argsVar, row.color, row.quarters, row.desc, `https://cdn.discordapp.com/emojis/${row.badge}.png?v=1`, `https://cdn.discordapp.com/emojis/490744262594396170.png?v=1`, row.cmds);//490744262594396170
+              profiler(argsVar, row.color, row.quarters, row.desc, `https://cdn.discordapp.com/emojis/${row.badge}.png?v=1`, `https://cdn.discordapp.com/emojis/490744262594396170.png?v=1`, row.cmds, row.bg); //blank
             }
           }
 
