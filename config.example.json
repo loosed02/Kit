@@ -5,5 +5,6 @@
     "owner": "PASTE-YOUR-ID-HERE",
     "logChannel": "PASTE-LOG-CHANNEL-ID-HERE",
     "evalAllow": [],
-    "__comment": "put user IDs who are allowed to use the eval command in evalAllow"
+    "__comment": "put user IDs who are allowed to use the eval command in evalAllow",
+    "imgur": "imgur-app-id-here"
 }
